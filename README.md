@@ -25,7 +25,7 @@ Atributos com um asterisco são obrigatórios:
 - Elementos*
 - Privacidade*
 - Gostos*
-- [Comentários](#Comentario)Comentários
+- [Comentários](#Comentario)
 - Descritores
 - Descrição
 
