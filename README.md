@@ -20,12 +20,12 @@ Atributos com um asterisco são obrigatórios:
 - Id utilizador*
 - Título*
 - Data*
-- [link](#tipos)Tipo*
+- [Tipo*](#tipos)
 - Local
 - Elementos*
 - Privacidade*
 - Gostos*
-- [link](#Comentario)Comentários
+- [Comentários](#Comentario)Comentários
 - Descritores
 - Descrição
 
