@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .w3-card-4(style="min-height: 100vh")
+    header.w3-container.w3-theme-d2
+      h1 myFacebook
+    .w3-container
+      .w3-row
+        .w3-col.m6
+          .w3-container
+            h3.w3-container Login
+            form.w3-container(action='/login' method='POST')
+              input.w3-input.w3-border(name='email' type='email' placeholder='Email')
+              br
+              input.w3-input.w3-border(name='password' type='password' placeholder='Password')
+              br
+              input.w3-btn.w3-theme-d2(type='submit' value='login')
+              br
+        .w3-col.m6
+          .w3-container
+            h3.w3-container Register
+            form.w3-container(action='/register' method='POST')
+              input.w3-input.w3-border(name='nome' type='text' placeholder='First and Last Name')
+              br
+              input.w3-input.w3-border(name='email' type='email' placeholder='Email')
+              br
+              input.w3-input.w3-border(name='password' type='password' placeholder='Password')
+              br
+              input.w3-input.w3-border(id="date" name="data" placeholder="Birth Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
+              br
+              input(name="gender" type="radio" value="Female")
+              | &nbsp;Female &nbsp;&nbsp;
+              input(name="gender" type="radio" value="Male")
+              | &nbsp;Male &nbsp;&nbsp;
+              input(name="gender" type="radio" value="Male")
+              | &nbsp;Other
+              br
+              br
+              input.w3-btn.w3-theme-d2(type='submit' value='register')
+              br

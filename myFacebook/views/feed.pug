@@ -1,0 +1,259 @@
+extends layout
+
+block content
+    // Barra de Navegação
+    .w3-top
+        .w3-bar.w3-theme-d2.w3-left-align.w3-large
+            // Ao clicar neste botão ir para o feed
+            a.w3-bar-item.w3-button.w3-padding-large.w3-theme-d4(href='#')
+                i.fa.fa-home.w3-margin-right
+                | Home
+            // Ao clicar neste botão ir para a página de perfil
+            a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='#' title='Profile')
+                img.w3-circle(src='/images/user.png' style='height:23px;width:23px' alt='Profile')
+                b(style="font-size:14px") &nbsp;User
+            .w3-bar-item.w3-hide-small.w3-padding-large
+                .search-container
+                    form(action='/user')
+                        input(type='text' placeholder='Search...' name='search')
+                        | &nbsp;
+                        button.w3-button.w3-hover-white(type='submit')
+                            i.fa.fa-search
+            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='#' title='News')
+                i.fa.fa-globe
+            // Ao clicar neste botão ir para a página inicial (login/registo)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Logout')
+                i.fa.fa-power-off
+            // Ao clicar neste botão mostrar os grupos (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Groups')
+                i.fa.fa-group
+            // Ao clicar neste botão mostrar os eventos (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Events')
+                i.fa.fa-calendar-check-o
+            .w3-dropdown-hover.w3-right.w3-hide-small
+                button.w3-button.w3-padding-large.w3-hover-white(title='Notifications')
+                    i.fa.fa-bell
+                    span.w3-badge.w3-right.w3-small.w3-green 3
+                // Ao clicar numa notificação ir para a página referente
+                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
+                    a.w3-bar-item.w3-button(href='#') One new friend request
+                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
+                    a.w3-bar-item.w3-button(href='#') Jane likes your post
+            // Ao clicar neste botão mostrar as mensagens (nova página ou dropdown menu?)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Messages')
+                i.fa.fa-envelope
+            // Ao clicar neste botão mostrar os pedidos de amizade (nova página ou dropdown menu?)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Friend Requests')
+                i.fa.fa-user
+    // Page Container
+    .w3-container.w3-content(style='max-width:1400px;margin-top:80px')
+        // The Grid
+        .w3-row
+            // Left Column
+            .w3-col.m3
+                // Profile
+                .w3-card.w3-round.w3-white
+                    .w3-container
+                        h4.w3-center User
+                        // Trigger/Open The Modal
+                        .w3-center
+                            button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
+                                .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
+                                    .hvrbox-layer_top
+                                        .hvrbox-text.w3-circle
+                                            | Change profile photo
+                        // The Modal
+                        #myModal.modal
+                            // Modal content
+                            .modal-content
+                                span.close &times;
+                                form.w3-container(action='/' method='POST' enctype='multipart/form-data')
+                                    b Choose your new profile photo
+                                    br
+                                    br
+                                    input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
+                        hr
+                        p
+                            i.fa.fa-pencil.fa-fw.w3-margin-right.w3-text-theme
+                            |  Designer, UI
+                        p
+                            i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
+                            |  London, UK
+                        p
+                            i.fa.fa-birthday-cake.fa-fw.w3-margin-right.w3-text-theme
+                            |  April 1, 1988
+                        .w3-center
+                            button.w3-button.w3-theme-d2(id="editar") Editar Perfil
+                        br
+                br
+                // Accordion
+                .w3-card.w3-round
+                    .w3-white
+                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo1')")
+                            i.fa.fa-group.fa-fw.w3-margin-right
+                            |  Groups
+                        #Demo1.w3-hide.w3-container
+                            p Some text..
+                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo2')")
+                            i.fa.fa-calendar-check-o.fa-fw.w3-margin-right
+                            |  Events
+                        #Demo2.w3-hide.w3-container
+                            p Some other text..
+                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo3')")
+                            i.fa.fa-handshake-o.fa-fw.w3-margin-right
+                            |  Friends
+                        #Demo3.w3-hide.w3-container
+                            p Some other text..
+                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo4')")
+                            i.fa.fa-camera.fa-fw.w3-margin-right
+                            |  Photos
+                        #Demo4.w3-hide.w3-container
+                            .w3-row-padding
+                                br
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                                .w3-half
+                                    img.w3-margin-bottom(src='/images/user.png' style='width:100%')
+                br
+                // Interests
+                .w3-card.w3-round.w3-white.w3-hide-small
+                    .w3-container
+                        p Interests
+                        p
+                            span.w3-tag.w3-small.w3-theme-d5 News
+                            span.w3-tag.w3-small.w3-theme-d4 W3Schools
+                            span.w3-tag.w3-small.w3-theme-d3 Labels
+                            span.w3-tag.w3-small.w3-theme-d2 Games
+                            span.w3-tag.w3-small.w3-theme-d1 Friends
+                            span.w3-tag.w3-small.w3-theme Games
+                            span.w3-tag.w3-small.w3-theme-l1 Friends
+                            span.w3-tag.w3-small.w3-theme-l2 Food
+                            span.w3-tag.w3-small.w3-theme-l3 Design
+                            span.w3-tag.w3-small.w3-theme-l4 Art
+                            span.w3-tag.w3-small.w3-theme-l5 Photos
+                br
+            // End Left Column
+            // Middle Column
+            .w3-col.m7
+                .w3-row-padding
+                    .w3-col.m12
+                        .w3-card.w3-round.w3-white
+                            .w3-container.w3-padding
+                                h6.w3-opacity Share your thoughts
+                                p.w3-border.w3-padding(contenteditable='true') Status: A arder
+                                button.w3-button.w3-right.w3-theme.w3-round(type='button')
+                                    i.fa.fa-pencil-square-o
+                                    |  &nbsp;Post 
+                                button.w3-button.w3-hover-white(type='button')
+                                    label(for="image")
+                                        input(type="file" name="image" id="image" style="display:none;")
+                                        i.fa.fa-camera
+                                button.w3-button.w3-hover-white(type='button')
+                                    label(for="video")
+                                        input(type="file" name="video" id="video" style="display:none;")
+                                        i.fa.fa-video-camera
+                                button.w3-button.w3-hover-white(type='button')
+                                    label(for="gif")
+                                        input(type="file" name="gif" id="gif" style="display:none;")
+                                        img(src="/images/gif.png" style="width:25px")
+                .w3-container.w3-card.w3-white.w3-round.w3-margin
+                    br
+                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                    span.w3-right.w3-opacity 1 min
+                    h4 John Doe
+                    br
+                    p
+                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    .w3-row-padding(style='margin:0 -16px')
+                        .w3-half
+                            img.w3-margin-bottom(src='/images/user.png' style='width:100%' alt='Northern Lights')
+                        .w3-half
+                            img.w3-margin-bottom(src='/images/user.png' style='width:100%' alt='Nature')
+                    br
+                    .hr.w3-clear
+                    // Ao clicar mudar o botão para fa.fa.thumbs-up azul
+                    form(method='POST' action='/gostar/')
+                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                            i.fa.fa-thumbs-o-up
+                            | &nbsp;Like (0)
+                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
+                            i.fa.fa-comment-o
+                            | &nbsp;Comment (1)
+                    .hr
+                    div(class="image-txt-container")
+                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                        | &nbsp;
+                        .w3-container(style="width:605px;vertical-align:top")
+                            p 
+                                b(style="color:#006683") ZZGlider
+                                span.w3-right.w3-opacity 1 min
+
+                            .w3-border.w3-round.w3-light-grey
+                                div(style="margin-left:10px")
+                                    p Estava muito constipado e ainda pensei se ia mas depois disse para mim: "Nunca curaste nada no sofá...".
+                                    p Há mais DAW para o ano!
+                    br
+                    #Demo5.w3-hide
+                        .w3-container
+                            form(action='/' method='POST' enctype='multipart/form-data')
+                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                | &nbsp; &nbsp; &nbsp;
+                                textarea.w3-round.w3-light-grey(placeholder="Write a comment...")
+                                button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
+                                    i.fa.fa-comment-o
+                                    |  &nbsp;Post
+                        br
+            // End Middle Column
+            // Right Column
+            .w3-col.m2
+                .w3-card.w3-round.w3-white.w3-center
+                    .w3-container
+                        p Upcoming Events:
+                        img(src='/images/user.png' alt='Forest' style='width:100%;')
+                        p
+                            strong Holiday
+                        p Friday 15:00
+                        p
+                            button.w3-button.w3-block.w3-theme-l4 Info
+                br
+            // End Right Column
+        // End Grid
+    // End Page Container
+    br
+    // Footer
+    //footer.w3-container.w3-theme-d3.w3-padding-16
+        h5 Footer
+    //footer.w3-container.w3-theme-d5
+        p
+            | Powered by 
+            a(href='https://www.w3schools.com/w3css/default.asp' target='_blank') w3.css
+
+    script.
+        // Get the modal
+      var modal = document.getElementById('myModal');
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
