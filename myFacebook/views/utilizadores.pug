@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .w3-container
+    h2 Utilizadores: 
+    table.w3-table-all
+        th ID
+        th Email
+        th Password
+        th Nome
+        th DataNascimento
+        th Morada          
+        th Sexo
+        each u in utilizadores
+            tr
+                td= u._id
+                td= u.email               
+                td= u.password
+                td= u.nome
+                td= u.dataNasc
+                td= u.morada
+                td= u.sexo

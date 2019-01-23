@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  .w3-container
+    h2 Publicacoes: 
+    table.w3-table-all
+        th ID Utilizador
+        th Titulo
+        th Data
+        th Tipo
+        th Local
+        th Elementos         
+        th Privacidade
+        th Gostos
+        th Comentários
+        th Descritores
+        th Descrição
+        each p in publicacoes
+            tr
+                td= p.id_utilizador
+                td= p.titulo            
+                td= p.data
+                td
+                    table.w3-table-all
+                        each t in p.tipo
+                            tr
+                                td= t.ideia
+                td= p.local
+                td
+                    table.w3-table-all
+                        each e in p.elementos
+                            tr
+                                td= e
+                td= p.privacidade
+                td= p.gostos
+                td
+                    table.w3-table-all
+                        each c in p.comentarios
+                            tr
+                                td= c.id_utilizador
+                                td= c.descricao
+                                td= c.data 
+                                td= c.gostos
+                td
+                    table.w3-table-all
+                        each d in p.descritores
+                            tr
+                                td= d
+                td= p.descricao

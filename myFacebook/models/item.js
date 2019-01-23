@@ -3,12 +3,6 @@ var Schema = mongoose.Schema
 
 /*TODO: VER ISTO*/
 
-var TipoSchema = new Schema({
-    album: AlbumSchema,
-    ideia: {type: String},
-    evento: EventoSchema
-})
-
 var AlbumSchema = new Schema({
     fotos: {type: [String], required: true}
 })
@@ -17,6 +11,12 @@ var EventoSchema = new Schema({
     participantes: {type: [String]},
     dataInicio: {type: String, required: true},
     dataFim: {type: String, required: true}
+})
+
+var TipoSchema = new Schema({
+    album: AlbumSchema,
+    ideia: {type: String},
+    evento: EventoSchema
 })
 
 var ComentarioSchema = new Schema({
@@ -35,7 +35,7 @@ var ItemSchema = new Schema({
     elementos: {type: [String], required: true},
     privacidade: {type: String, required: true},
     gostos: {type: Number, required: true},
-    comentarios: [ComentarioSchema], required:true,
+    comentarios: [ComentarioSchema], 
     descritores: {type: [String]},
     descricao: {type: String}
 })

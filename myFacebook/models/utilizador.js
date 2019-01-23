@@ -11,7 +11,7 @@ var UtilizadorSchema = new Schema({
     morada: {type: String},
     sexo: {type: String, required: true}
 })
-
+/*
 //hashing a password before saving it to the database
 UtilizadorSchema.pre('save', function save(next) {
     const user = this;
@@ -25,16 +25,16 @@ UtilizadorSchema.pre('save', function save(next) {
       });
     });
   });
-  
+  */
   /**
    * Helper method for validating user's password.
    */
+  /*
   UtilizadorSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
       cb(err, isMatch);
     });
   };
-  
-
+  */
 
 module.exports = mongoose.model('Utilizador', UtilizadorSchema, 'utilizadores') // Nome que se quer dar ao modelo, schema, coleção da BD
