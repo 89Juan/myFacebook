@@ -1,9 +1,9 @@
 var Item = require('../../models/item')
 
 // Lista de itens
-module.exports.listar = () => {
+module.exports.listar = (query) => {
     return Item
-        .find()
+        .find(query)
         .exec()
 }
 
@@ -23,7 +23,7 @@ module.exports.listarComentarios = (iid) => {
 }
 
 // Insere comentário num item
-module.exports.inserir = (iid,comentario) => {
+module.exports.inserirComentario = (iid,comentario) => {
     return Item
         .update({_id: iid},
                 {$push: {comentarios: comentario}})
@@ -31,10 +31,31 @@ module.exports.inserir = (iid,comentario) => {
 }
 
 // Atualiza comentário num item
+module.exports.atualizaComentario = (iid, cid, comentario) => {
+    return Item
+        .update({_id: iid, 'comentario._id': cid},
+                {$set: {'comentario.$.descricao': comentario.descricao}})
+        .exec()
+}
 
+// Adiciona like
+module.exports.like = (iid) => {
+    return Item
+        .update({_id: iid},
+                {$inc: {gostos: 1}})
+        .exec()
+}
+
+// Remove like
+module.exports.dislike = (iid) => {
+    return Item
+        .update({_id: iid},
+                {$inc: {gostos: -1}})
+        .exec()
+}
 
 // Remover um comentário
-module.exports.remover = (iid,comentario) => {
+module.exports.removerComentario = (iid,comentario) => {
     return Item
     .update({_id: iid},
         {$pull: {comentarios: comentario}})
@@ -45,3 +66,18 @@ module.exports.remover = (iid,comentario) => {
 module.exports.inserir = item => {
     return Item.create(item)
 }
+
+// Atualiza um item
+module.exports.atualizaItem = (iid, item) => {
+    return Item
+        .update({_id: iid},
+                {item})
+        .exec()
+}
+
+// Remove um item
+module.exports.removerItem = (iid) => {
+    return Item
+    .remove({_id: iid})
+    .exec()
+    }
