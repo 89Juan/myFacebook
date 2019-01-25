@@ -16,12 +16,17 @@ router.post('/utilizador/login', passport.authenticate('login', {
 }))
 
 // Registo
-router.post('/utilizador/register', passport.authenticate('register', {
+router.post('/utilizador/registar', passport.authenticate('registar', {
   successRedirect: '/feed',
   failureRedirect: '/'
 }))
 
 router.post('/utilizador/logout', verificaAutenticacao, (req, res) => {
+  /*req.session.destroy(() => {
+    res.clearCookie('connect.sid')
+    res.redirect('/')
+  })*/
+  req.logOut();
   res.redirect('/')
 })
 

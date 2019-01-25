@@ -5,34 +5,32 @@ block content
     .w3-top
         .w3-bar.w3-theme-d2.w3-left-align.w3-large
             // Ao clicar neste botão ir para o feed
-            a.w3-bar-item.w3-button.w3-padding-large.w3-theme-d4(href='#')
-                i.fa.fa-home.w3-margin-right
-                | Home
+            a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
+                i.fa.fa-facebook.w3-margin-right
+                | myFacebook
             // Ao clicar neste botão ir para a página de perfil
-            a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='#' title='Profile')
-                img.w3-circle(src='/images/user.png' style='height:23px;width:23px' alt='Profile')
-                b(style="font-size:14px") &nbsp;User
-            .w3-bar-item.w3-hide-small.w3-padding-large
+            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
+                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
+                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
+            .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
                 .search-container
-                    form(action='/user')
-                        input(type='text' placeholder='Search...' name='search')
+                    form(action='/utilizador/:id')
+                        input(type='text' placeholder='Pesquisar...' name='pesquisa')
                         | &nbsp;
                         button.w3-button.w3-hover-white(type='submit')
                             i.fa.fa-search
-            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='#' title='News')
-                i.fa.fa-globe
             // Ao clicar neste botão ir para a página inicial (login/registo)
             form(action='/utilizador/logout' method='POST')
                 button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
                     i.fa.fa-power-off
-            // Ao clicar neste botão mostrar os grupos (nova página)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Groups')
+            // Ao clicar neste botão mostrar os users (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
                 i.fa.fa-group
             // Ao clicar neste botão mostrar os eventos (nova página)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Events')
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Eventos')
                 i.fa.fa-calendar-check-o
             .w3-dropdown-hover.w3-right.w3-hide-small
-                button.w3-button.w3-padding-large.w3-hover-white(title='Notifications')
+                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
                     i.fa.fa-bell
                     span.w3-badge.w3-right.w3-small.w3-green 3
                 // Ao clicar numa notificação ir para a página referente
@@ -40,12 +38,6 @@ block content
                     a.w3-bar-item.w3-button(href='#') One new friend request
                     a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
                     a.w3-bar-item.w3-button(href='#') Jane likes your post
-            // Ao clicar neste botão mostrar as mensagens (nova página ou dropdown menu?)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Messages')
-                i.fa.fa-envelope
-            // Ao clicar neste botão mostrar os pedidos de amizade (nova página ou dropdown menu?)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Friend Requests')
-                i.fa.fa-user
     // Page Container
     .w3-container.w3-content(style='max-width:1400px;margin-top:80px')
         // The Grid
@@ -55,21 +47,21 @@ block content
                 // Profile
                 .w3-card.w3-round.w3-white
                     .w3-container
-                        h4.w3-center User
+                        h4.w3-center Utilizador
                         // Trigger/Open The Modal
                         .w3-center
                             button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
                                 .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
                                     .hvrbox-layer_top
                                         .hvrbox-text.w3-circle
-                                            | Change profile photo
+                                            | Alterar foto de perfil
                         // The Modal
                         #myModal.modal
                             // Modal content
                             .modal-content
                                 span.close &times;
                                 form.w3-container(action='/' method='POST' enctype='multipart/form-data')
-                                    b Choose your new profile photo
+                                    b Escolhe a tua nova foto de perfil
                                     br
                                     br
                                     input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
@@ -90,24 +82,14 @@ block content
                 // Accordion
                 .w3-card.w3-round
                     .w3-white
-                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo1')")
-                            i.fa.fa-group.fa-fw.w3-margin-right
-                            |  Groups
-                        #Demo1.w3-hide.w3-container
-                            p Some text..
                         button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo2')")
                             i.fa.fa-calendar-check-o.fa-fw.w3-margin-right
-                            |  Events
+                            |  Eventos
                         #Demo2.w3-hide.w3-container
-                            p Some other text..
-                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo3')")
-                            i.fa.fa-handshake-o.fa-fw.w3-margin-right
-                            |  Friends
-                        #Demo3.w3-hide.w3-container
                             p Some other text..
                         button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo4')")
                             i.fa.fa-camera.fa-fw.w3-margin-right
-                            |  Photos
+                            |  Álbuns
                         #Demo4.w3-hide.w3-container
                             .w3-row-padding
                                 br
@@ -148,11 +130,11 @@ block content
                     .w3-col.m12
                         .w3-card.w3-round.w3-white
                             .w3-container.w3-padding
-                                h6.w3-opacity Share your thoughts
-                                p.w3-border.w3-padding(contenteditable='true') Status: A arder
+                                h6.w3-opacity Em que estás a pensar?
+                                p.w3-border.w3-padding(contenteditable='true') Estado: A arder
                                 button.w3-button.w3-right.w3-theme.w3-round(type='button')
                                     i.fa.fa-pencil-square-o
-                                    |  &nbsp;Post 
+                                    |  &nbsp;Publicar
                                 button.w3-button.w3-hover-white(type='button')
                                     label(for="image")
                                         input(type="file" name="image" id="image" style="display:none;")
@@ -184,10 +166,10 @@ block content
                     form(method='POST' action='/gostar/')
                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
                             i.fa.fa-thumbs-o-up
-                            | &nbsp;Like (0)
+                            | &nbsp;Gostos (0)
                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
                             i.fa.fa-comment-o
-                            | &nbsp;Comment (1)
+                            | &nbsp;Comentários (1)
                     .hr
                     div(class="image-txt-container")
                         img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
@@ -210,14 +192,14 @@ block content
                                 textarea.w3-round.w3-light-grey(placeholder="Write a comment...")
                                 button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
                                     i.fa.fa-comment-o
-                                    |  &nbsp;Post
+                                    |  &nbsp;Comentar
                         br
             // End Middle Column
             // Right Column
             .w3-col.m2
                 .w3-card.w3-round.w3-white.w3-center
                     .w3-container
-                        p Upcoming Events:
+                        p Eventos em breve:
                         img(src='/images/user.png' alt='Forest' style='width:100%;')
                         p
                             strong Holiday

@@ -24,7 +24,7 @@ var UserModel = require('./models/utilizador')
 var app = express();
 
 // Registo de um utilizador
-passport.use('register', new LocalStrategy({
+passport.use('registar', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true

@@ -1,22 +1,104 @@
 extends layout
 
 block content
-  .w3-container
-    h2 Utilizadores: 
-    table.w3-table-all
-        th ID
-        th Email
-        th Password
-        th Nome
-        th DataNascimento
-        th Morada          
-        th Sexo
-        each u in utilizadores
-            tr
-                td= u._id
-                td= u.email               
-                td= u.password
-                td= u.nome
-                td= u.dataNasc
-                td= u.morada
-                td= u.sexo
+    // Barra de Navegação
+    .w3-top
+        .w3-bar.w3-theme-d2.w3-left-align.w3-large
+            // Ao clicar neste botão ir para o feed
+            a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
+                i.fa.fa-facebook.w3-margin-right
+                | myFacebook
+            // Ao clicar neste botão ir para a página de perfil
+            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
+                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
+                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
+            .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
+                .search-container
+                    form(action='/utilizador/:id')
+                        input(type='text' placeholder='Pesquisar...' name='pesquisa')
+                        | &nbsp;
+                        button.w3-button.w3-hover-white(type='submit')
+                            i.fa.fa-search
+            // Ao clicar neste botão ir para a página inicial (login/registo)
+            form(action='/utilizador/logout' method='POST')
+                button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
+                    i.fa.fa-power-off
+            // Ao clicar neste botão mostrar os users (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
+                i.fa.fa-group
+            // Ao clicar neste botão mostrar os eventos (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='#' title='Eventos')
+                i.fa.fa-calendar-check-o
+            .w3-dropdown-hover.w3-right.w3-hide-small
+                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
+                    i.fa.fa-bell
+                    span.w3-badge.w3-right.w3-small.w3-green 3
+                // Ao clicar numa notificação ir para a página referente
+                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
+                    a.w3-bar-item.w3-button(href='#') One new friend request
+                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
+                    a.w3-bar-item.w3-button(href='#') Jane likes your post
+    // Page Container
+    .w3-content(style='max-width:1400px;margin-top:50px')
+        // The Grid
+        .w3-row
+            header.w3-container.w3-white
+                h2.w3-center(style="color:#006683") Utilizadores
+            
+            table.w3-table-all
+                -var i = 0
+                - while(i < utilizadores.length)
+                    tr
+                        -var u = utilizadores[i]
+                        td(style="vertical-align:middle;width:50%")
+                            div(class="image-txt-container")
+                                img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                | &nbsp;
+                                .w3-container(style="width:605px;vertical-align:top")
+                                    i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
+                                    span
+                                        a(href="/utilizador/"+u._id)=u.nome
+                                    br
+                                    i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
+                                    span=u.email
+                                    br
+                                    i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
+                                    span=u.morada
+                                    br
+                                    -if (u.sexo == "Feminino")
+                                        i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
+                                    -else if(u.sexo == "Masculino")
+                                        i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
+                                    -else
+                                        i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
+                                    span=u.sexo
+                                    -i++
+                                    br
+                        -if(i < utilizadores.length)
+                            -var u = utilizadores[i]
+                            td(style="vertical-align:middle;width:50%")
+                                div(class="image-txt-container")
+                                    img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                    | &nbsp;
+                                    .w3-container(style="width:605px;vertical-align:top")
+                                        i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
+                                        span
+                                            a(href="/utilizador/"+u._id)=u.nome
+                                        br
+                                        i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
+                                        span=u.email
+                                        br
+                                        i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
+                                        span=u.morada
+                                        br
+                                        -if (u.sexo == "Feminino")
+                                            i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
+                                        -else if(u.sexo == "Masculino")
+                                            i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
+                                        -else
+                                            i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
+                                        span=u.sexo
+                                        -i++
+                                        br
+                        -else
+                            td(style="width:50%")

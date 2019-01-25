@@ -18,23 +18,23 @@ block content
               br
         .w3-col.m6
           .w3-container
-            h3.w3-container Register
-            form.w3-container(action='/utilizador/register' method='POST')
-              input.w3-input.w3-border(name='nome' type='text' placeholder='First and Last Name')
+            h3.w3-container Registar
+            form.w3-container(action='/utilizador/registar' method='POST')
+              input.w3-input.w3-border(name='nome' type='text' placeholder='Primeiro e Último Nome')
               br
               input.w3-input.w3-border(name='email' type='email' placeholder='Email')
               br
               input.w3-input.w3-border(name='password' type='password' placeholder='Password')
               br
-              input.w3-input.w3-border(id="date" name="dataNasc" placeholder="Birth Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
+              input.w3-input.w3-border(id="date" name="dataNasc" placeholder="Data de Nascimento" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
               br
-              input(name="sexo" type="radio" value="Female")
-              | &nbsp;Female &nbsp;&nbsp;
-              input(name="sexo" type="radio" value="Male")
-              | &nbsp;Male &nbsp;&nbsp;
-              input(name="sexo" type="radio" value="Male")
-              | &nbsp;Other
+              input(name="sexo" type="radio" value="Feminino")
+              | &nbsp;Feminino &nbsp;&nbsp;
+              input(name="sexo" type="radio" value="Masculino")
+              | &nbsp;Masculino &nbsp;&nbsp;
+              input(name="sexo" type="radio" value="Outro")
+              | &nbsp;Outro
               br
               br
-              input.w3-btn.w3-theme-d2(type='submit' value='register')
+              input.w3-btn.w3-theme-d2(type='submit' value='registar')
               br
