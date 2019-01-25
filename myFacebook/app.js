@@ -38,7 +38,7 @@ passport.use('register', new LocalStrategy({
       return done(null, user)
   }
   catch(error) {
-      return done(error)
+      return done(null, false, {message: 'ERRO: O email inserido já está a ser utilizado!'})
   }
 }))
 
