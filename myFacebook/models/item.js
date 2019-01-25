@@ -14,26 +14,21 @@ var EventoSchema = new Schema({
 var ComentarioSchema = new Schema({
     id_utilizador: {type: Schema.Types.ObjectId, ref: 'Utilizador', required: true},
     descricao: {type: String, required: true},
-    data: {type: String, required: true},
-    gostos: {type: Number, required: true}
-})
-
-var DescritorSchema = new Schema({
-  nome: {type: String, required: true},
-  items: {type: [String] }
+    data: {type: String},
+    gostos: {type: Number, default: 0}
 })
 
 var ItemSchema = new Schema({
     id_utilizador: {type: Schema.Types.ObjectId, ref: 'Utilizador', required: true},
     titulo: {type: String, required: true},
-    data: {type: String, required: true},
-    tipo: {type: Schema.Types.Mixed, enum: [AlbumSchema, EventoSchema, 'Ideia'], required: true},
+    data: {type: String},
+    tipo: {type: Schema.Types.Mixed, enum: [AlbumSchema, EventoSchema, 'Ideia'], default: 'Ideia'},
     local: {type: String},
     elementos: {type: [String], required: true},
-    privacidade: {type: String, required: true},
-    gostos: {type: Number, required: true},
-    comentarios: [ComentarioSchema], 
-    descritores: {type: DescritorSchema},
+    privacidade: {type: Boolean, default: false},
+    gostos: {type: Number, default: 0},
+    comentarios: {type: [ComentarioSchema], default: []}, 
+    descritores: {type: [String]},
     descricao: {type: String}
 })
 

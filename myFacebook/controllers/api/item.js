@@ -31,9 +31,9 @@ module.exports.inserirComentario = (iid,comentario) => {
 }
 
 // Atualiza comentário num item
-module.exports.atualizaComentario = (iid, cid, comentario) => {
+module.exports.atualizaComentario = (iid, comentario) => {
     return Item
-        .update({_id: iid, 'comentario._id': cid},
+        .update({_id: iid},
                 {$set: {'comentario.$.descricao': comentario.descricao}})
         .exec()
 }

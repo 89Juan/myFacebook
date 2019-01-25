@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var utilizadoresAPIRouter = require('./routes/api/utilizadores');
-var itemsAPIRouter = require('./routes/api/utilizadores');
+var itemsAPIRouter = require('./routes/api/items');
 
 var uuid = require('uuid/v4')
 var session = require('express-session')
