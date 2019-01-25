@@ -4,6 +4,12 @@ var Utilizador = require('../../controllers/api/utilizador')
 
 // API para os utilizadores
 
+router.get('/utilizador/login/:email', (req, res) => {
+    Utilizador.consultar(req.params.email)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send('Erro no login do user.'))
+})
+
 router.get('/utilizadores', (req,res) => {
     Utilizador.listarUt()
         .then(dados => res.jsonp(dados))

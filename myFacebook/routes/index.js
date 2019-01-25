@@ -1,15 +1,44 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
+var passport = require('passport')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
 
-router.get('/feed', function(req, res, next) {
-  res.render('feed');
-});
+// Página inicial (autenticação e registo)
+router.get('/', (req, res) => {
+  res.render('index')
+})
+
+// Login
+router.post('/utilizador/login', passport.authenticate('login', {
+  successRedirect: '/feed',
+  failureRedirect: '/'
+}))
+
+// Registo
+router.post('/utilizador/register', passport.authenticate('register', {
+  successRedirect: '/feed',
+  failureRedirect: '/'
+}))
+
+router.post('/utilizador/logout', verificaAutenticacao, (req, res) => {
+  res.redirect('/')
+})
+
+function verificaAutenticacao(req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  }
+  else {
+    res.redirect('/')
+  }
+}
+
+// Página principal
+router.get('/feed', verificaAutenticacao, (req, res) => {
+  res.render('feed')
+})
+
 
 router.get('/utilizadores', function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizadores')

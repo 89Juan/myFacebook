@@ -9,7 +9,7 @@ block content
         .w3-col.m6
           .w3-container
             h3.w3-container Login
-            form.w3-container(action='/login' method='POST')
+            form.w3-container(action='/utilizador/login' method='POST')
               input.w3-input.w3-border(name='email' type='email' placeholder='Email')
               br
               input.w3-input.w3-border(name='password' type='password' placeholder='Password')
@@ -19,20 +19,20 @@ block content
         .w3-col.m6
           .w3-container
             h3.w3-container Register
-            form.w3-container(action='/register' method='POST')
+            form.w3-container(action='/utilizador/register' method='POST')
               input.w3-input.w3-border(name='nome' type='text' placeholder='First and Last Name')
               br
               input.w3-input.w3-border(name='email' type='email' placeholder='Email')
               br
               input.w3-input.w3-border(name='password' type='password' placeholder='Password')
               br
-              input.w3-input.w3-border(id="date" name="data" placeholder="Birth Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
+              input.w3-input.w3-border(id="date" name="dataNasc" placeholder="Birth Date" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
               br
-              input(name="gender" type="radio" value="Female")
+              input(name="sexo" type="radio" value="Female")
               | &nbsp;Female &nbsp;&nbsp;
-              input(name="gender" type="radio" value="Male")
+              input(name="sexo" type="radio" value="Male")
               | &nbsp;Male &nbsp;&nbsp;
-              input(name="gender" type="radio" value="Male")
+              input(name="sexo" type="radio" value="Male")
               | &nbsp;Other
               br
               br

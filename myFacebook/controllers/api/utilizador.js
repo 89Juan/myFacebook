@@ -9,9 +9,9 @@ module.exports.listarUt = () => {
 }
 
 // Devolve informação de um utilizador
-module.exports.consultar = uid => {
+module.exports.consultar = email => {
     return Utilizador
-        .findOne({_id: uid})
+        .findOne({email: email})
         .exec()
 }
 
