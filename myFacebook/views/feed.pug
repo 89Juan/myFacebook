@@ -65,11 +65,23 @@ block content
                                     input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
                         hr
                         p
-                            i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
-                            = user.morada || '-'
+                            i.fa.fa-at.fa-fw.w3-margin-right.w3-text-theme
+                            span=user.email
+                        if (user.morada)
+                            p
+                                i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
+                                span=user.morada
                         p
                             i.fa.fa-birthday-cake.fa-fw.w3-margin-right.w3-text-theme
-                            = user.dataNasc || '-/-/-'
+                            span=user.dataNasc
+                        p
+                            -if (user.sexo == "Feminino")
+                                i.fa.fa-venus.fa-fw.w3-margin-right.w3-text-theme
+                            -else if(utilizador.sexo == "Masculino")
+                                i.fa.fa-mars.fa-fw.w3-margin-right.w3-text-theme
+                            -else
+                                i.fa.fa-genderless.fa-fw.w3-margin-right.w3-text-theme
+                            span=user.sexo
                         .w3-center
                             p.w3-button.w3-theme-d2(id="editarPerfil") 
                                 a(href="/editarPerfil") Editar Perfil
@@ -148,7 +160,7 @@ block content
                             br
                             p=item.descricao
                             .w3-row-padding(style='margin:0 -16px')
-                                each foto in fotos
+                                each foto in item.tipo.fotos
                                     .w3-half
                                         img.w3-margin-bottom(src=foto style='width:100%')
                             br
@@ -161,8 +173,8 @@ block content
                                 button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
                                     i.fa.fa-comment-o
                                     = 'Comentarios (' +  item.comentarios.length +')'
-                            .hr
-                            each comentario in item.comentaruis
+                            each comentario in item.comentarios
+                                .hr
                                 div(class="image-txt-container")
                                     img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                     | &nbsp;
@@ -174,16 +186,18 @@ block content
                                             div(style="margin-left:10px")
                                                 p=comentario.descricao
                                 br
-                                #Demo5.w3-hide
-                                    .w3-container
-                                        form(action='/' method='POST' enctype='multipart/form-data')
-                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                            | &nbsp; &nbsp; &nbsp;
-                                            textarea.w3-round.w3-light-grey(placeholder="Write a comment...")
-                                            button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
-                                                i.fa.fa-comment-o
-                                                |  &nbsp;Comentar
-                                    br
+                            #Demo5.w3-hide
+                                -if(item.comentarios.length == 0)
+                                .hr
+                                .w3-container
+                                    form(action='/' method='POST' enctype='multipart/form-data')
+                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                        | &nbsp; &nbsp; &nbsp;
+                                        textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
+                                        button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
+                                            i.fa.fa-comment-o
+                                            |  &nbsp;Comentar
+                                br
             // End Middle Column
             // Right Column
             .w3-col.m2
