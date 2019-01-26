@@ -36,8 +36,6 @@ block content
                 // Ao clicar numa notificação ir para a página referente
                 .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
                     a.w3-bar-item.w3-button(href='#') One new friend request
-                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
-                    a.w3-bar-item.w3-button(href='#') Jane likes your post
     // Page Container
     .w3-container.w3-content(style='max-width:1400px;margin-top:80px')
         // The Grid
@@ -47,7 +45,7 @@ block content
                 // Profile
                 .w3-card.w3-round.w3-white
                     .w3-container
-                        h4.w3-center Utilizador
+                        h4.w3-center=user.nome
                         // Trigger/Open The Modal
                         .w3-center
                             button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
@@ -67,16 +65,14 @@ block content
                                     input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
                         hr
                         p
-                            i.fa.fa-pencil.fa-fw.w3-margin-right.w3-text-theme
-                            |  Designer, UI
-                        p
                             i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
-                            |  London, UK
+                            = user.morada || '-'
                         p
                             i.fa.fa-birthday-cake.fa-fw.w3-margin-right.w3-text-theme
-                            |  April 1, 1988
+                            = user.dataNasc || '-/-/-'
                         .w3-center
-                            button.w3-button.w3-theme-d2(id="editar") Editar Perfil
+                            p.w3-button.w3-theme-d2(id="editarPerfil") 
+                                a(href="/editarPerfil") Editar Perfil
                         br
                 br
                 // Accordion
@@ -131,8 +127,8 @@ block content
                         .w3-card.w3-round.w3-white
                             .w3-container.w3-padding
                                 h6.w3-opacity Em que estás a pensar?
-                                p.w3-border.w3-padding(contenteditable='true') Estado: A arder
-                                button.w3-button.w3-right.w3-theme.w3-round(type='button')
+                                p.w3-border.w3-padding(contenteditable='true') A minha vida...
+                                button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
                                     i.fa.fa-pencil-square-o
                                     |  &nbsp;Publicar
                                 button.w3-button.w3-hover-white(type='button')
@@ -140,60 +136,54 @@ block content
                                         input(type="file" name="image" id="image" style="display:none;")
                                         i.fa.fa-camera
                                 button.w3-button.w3-hover-white(type='button')
-                                    label(for="video")
-                                        input(type="file" name="video" id="video" style="display:none;")
-                                        i.fa.fa-video-camera
-                                button.w3-button.w3-hover-white(type='button')
-                                    label(for="gif")
-                                        input(type="file" name="gif" id="gif" style="display:none;")
-                                        img(src="/images/gif.png" style="width:25px")
+                                    label(for="event")
+                                        input(type="file" name="event" id="event" style="display:none;")
+                                        i.fa.fa-calendar
                 .w3-container.w3-card.w3-white.w3-round.w3-margin
-                    br
-                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
-                    span.w3-right.w3-opacity 1 min
-                    h4 John Doe
-                    br
-                    p
-                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    .w3-row-padding(style='margin:0 -16px')
-                        .w3-half
-                            img.w3-margin-bottom(src='/images/user.png' style='width:100%' alt='Northern Lights')
-                        .w3-half
-                            img.w3-margin-bottom(src='/images/user.png' style='width:100%' alt='Nature')
-                    br
-                    .hr.w3-clear
-                    // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                    form(method='POST' action='/gostar/')
-                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                            i.fa.fa-thumbs-o-up
-                            | &nbsp;Gostos (0)
-                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
-                            i.fa.fa-comment-o
-                            | &nbsp;Comentários (1)
-                    .hr
-                    div(class="image-txt-container")
-                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                        | &nbsp;
-                        .w3-container(style="width:605px;vertical-align:top")
-                            p 
-                                b(style="color:#006683") ZZGlider
-                                span.w3-right.w3-opacity 1 min
-
-                            .w3-border.w3-round.w3-light-grey
-                                div(style="margin-left:10px")
-                                    p Estava muito constipado e ainda pensei se ia mas depois disse para mim: "Nunca curaste nada no sofá...".
-                                    p Há mais DAW para o ano!
-                    br
-                    #Demo5.w3-hide
-                        .w3-container
-                            form(action='/' method='POST' enctype='multipart/form-data')
-                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                | &nbsp; &nbsp; &nbsp;
-                                textarea.w3-round.w3-light-grey(placeholder="Write a comment...")
-                                button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
+                    each item in items
+                        -if(item.tipo.fotos)
+                            br
+                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                            h4=user.nome
+                            br
+                            p=item.descricao
+                            .w3-row-padding(style='margin:0 -16px')
+                                each foto in fotos
+                                    .w3-half
+                                        img.w3-margin-bottom(src=foto style='width:100%')
+                            br
+                            .hr.w3-clear
+                            // Ao clicar mudar o botão para fa.fa.thumbs-up azul
+                            form(method='POST' action='/gostar/')
+                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                    i.fa.fa-thumbs-o-up
+                                    = 'Gostos (' +  item.gostos +')'
+                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
                                     i.fa.fa-comment-o
-                                    |  &nbsp;Comentar
-                        br
+                                    = 'Comentarios (' +  item.comentarios.length +')'
+                            .hr
+                            each comentario in item.comentaruis
+                                div(class="image-txt-container")
+                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    | &nbsp;
+                                    .w3-container(style="width:605px;vertical-align:top")
+                                        p 
+                                            b(style="color:#006683")=comentario.id_utilizador
+
+                                        .w3-border.w3-round.w3-light-grey
+                                            div(style="margin-left:10px")
+                                                p=comentario.descricao
+                                br
+                                #Demo5.w3-hide
+                                    .w3-container
+                                        form(action='/' method='POST' enctype='multipart/form-data')
+                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                            | &nbsp; &nbsp; &nbsp;
+                                            textarea.w3-round.w3-light-grey(placeholder="Write a comment...")
+                                            button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
+                                                i.fa.fa-comment-o
+                                                |  &nbsp;Comentar
+                                    br
             // End Middle Column
             // Right Column
             .w3-col.m2
