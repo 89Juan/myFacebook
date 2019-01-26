@@ -75,6 +75,14 @@ module.exports.atualizaItem = (iid, item) => {
         .exec()
 }
 
+// Atualiza um item
+module.exports.atualizaItemParticipantes = (iid, participantes) => {
+    return Item
+        .update({_id: iid},
+                {$set:{'tipo.participantes':participantes}})
+        .exec()
+}
+
 // Remove um item
 module.exports.removerItem = (iid) => {
     return Item

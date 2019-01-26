@@ -48,6 +48,13 @@ router.put('/item/:iid', (req, res)=>{
         .catch(erro => res.status(500).send(erro+'Erro na atualização de um item.'))
 })
 
+router.put('/item/:iid/participantes', (req, res)=>{
+    console.log(req.body)
+    Item.atualizaItemParticipantes(req.params.iid, req.body)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).send(erro+'Erro na atualização de um item.'))
+})
+
 router.post('/item', (req, res)=>{
     Item.inserir(req.body)
         .then(dados => res.jsonp(dados))

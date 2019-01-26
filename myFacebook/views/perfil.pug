@@ -47,46 +47,33 @@ block content
                 // Profile
                 .w3-card.w3-round.w3-white
                     .w3-container
-                        h4.w3-center Utilizador
-                        // Trigger/Open The Modal
-                        .w3-center
-                            button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
-                                .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
-                                    .hvrbox-layer_top
-                                        .hvrbox-text.w3-circle
-                                            | Alterar foto de perfil
-                        // The Modal
-                        #myModal.modal
-                            // Modal content
-                            .modal-content
-                                span.close &times;
-                                form.w3-container(action='/' method='POST' enctype='multipart/form-data')
-                                    b Escolhe a tua nova foto de perfil
-                                    br
-                                    br
-                                    input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
+                        h4.w3-center=utilizador.nome
+                        p.w3-center
+                            img.w3-circle(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:106px;height:106px;")
                         hr
                         p
-                            i.fa.fa-pencil.fa-fw.w3-margin-right.w3-text-theme
-                            |  Designer, UI
-                        p
-                            i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
-                            |  London, UK
+                            i.fa.fa-at.fa-fw.w3-margin-right.w3-text-theme
+                            span=utilizador.email
+                        if (utilizador.morada)
+                            p
+                                i.fa.fa-home.fa-fw.w3-margin-right.w3-text-theme
+                                span=utilizador.morada
                         p
                             i.fa.fa-birthday-cake.fa-fw.w3-margin-right.w3-text-theme
-                            |  April 1, 1988
-                        .w3-center
-                            button.w3-button.w3-theme-d2(id="editar") Editar Perfil
+                            span=utilizador.dataNasc
+                        p
+                            -if (utilizador.sexo == "Feminino")
+                                i.fa.fa-venus.fa-fw.w3-margin-right.w3-text-theme
+                            -else if(utilizador.sexo == "Masculino")
+                                i.fa.fa-mars.fa-fw.w3-margin-right.w3-text-theme
+                            -else
+                                i.fa.fa-genderless.fa-fw.w3-margin-right.w3-text-theme
+                            span=utilizador.sexo
                         br
                 br
                 // Accordion
                 .w3-card.w3-round
                     .w3-white
-                        button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo2')")
-                            i.fa.fa-calendar-check-o.fa-fw.w3-margin-right
-                            |  Eventos
-                        #Demo2.w3-hide.w3-container
-                            p Some other text..
                         button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo4')")
                             i.fa.fa-camera.fa-fw.w3-margin-right
                             |  Álbuns
@@ -125,29 +112,8 @@ block content
                 br
             // End Left Column
             // Middle Column
-            .w3-col.m7
-                .w3-row-padding
-                    .w3-col.m12
-                        .w3-card.w3-round.w3-white
-                            .w3-container.w3-padding
-                                h6.w3-opacity Em que estás a pensar?
-                                p.w3-border.w3-padding(contenteditable='true') Estado: A arder
-                                button.w3-button.w3-right.w3-theme.w3-round(type='button')
-                                    i.fa.fa-pencil-square-o
-                                    |  &nbsp;Publicar
-                                button.w3-button.w3-hover-white(type='button')
-                                    label(for="image")
-                                        input(type="file" name="image" id="image" style="display:none;")
-                                        i.fa.fa-camera
-                                button.w3-button.w3-hover-white(type='button')
-                                    label(for="video")
-                                        input(type="file" name="video" id="video" style="display:none;")
-                                        i.fa.fa-video-camera
-                                button.w3-button.w3-hover-white(type='button')
-                                    label(for="gif")
-                                        input(type="file" name="gif" id="gif" style="display:none;")
-                                        img(src="/images/gif.png" style="width:25px")
-                .w3-container.w3-card.w3-white.w3-round.w3-margin
+            .w3-col.m9
+                .w3-container.w3-card.w3-white.w3-round.w3-margin-left
                     br
                     img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                     span.w3-right.w3-opacity 1 min
@@ -195,19 +161,6 @@ block content
                                     |  &nbsp;Comentar
                         br
             // End Middle Column
-            // Right Column
-            .w3-col.m2
-                .w3-card.w3-round.w3-white.w3-center
-                    .w3-container
-                        p Eventos em breve:
-                        img(src='/images/user.png' alt='Forest' style='width:100%;')
-                        p
-                            strong Holiday
-                        p Friday 15:00
-                        p
-                            button.w3-button.w3-block.w3-theme-l4 Info
-                br
-            // End Right Column
         // End Grid
     // End Page Container
     br

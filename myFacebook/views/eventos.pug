@@ -1,0 +1,146 @@
+extends layout
+
+block content
+    // Barra de Navegação
+    .w3-top
+        .w3-bar.w3-theme-d2.w3-left-align.w3-large
+            // Ao clicar neste botão ir para o feed
+            a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
+                i.fa.fa-facebook.w3-margin-right
+                | myFacebook
+            // Ao clicar neste botão ir para a página de perfil
+            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
+                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
+                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
+            .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
+                .search-container
+                    form(action='/utilizadores/')
+                        input(type='text' placeholder='Pesquisar...' name='nome')
+                        | &nbsp;
+                        button.w3-button.w3-hover-white(type='submit')
+                            i.fa.fa-search
+            // Ao clicar neste botão ir para a página inicial (login/registo)
+            form(action='/utilizador/logout' method='POST')
+                button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
+                    i.fa.fa-power-off
+            // Ao clicar neste botão mostrar os users (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
+                i.fa.fa-group
+            // Ao clicar neste botão mostrar os eventos (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/items' title='Eventos')
+                i.fa.fa-calendar-check-o
+            .w3-dropdown-hover.w3-right.w3-hide-small
+                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
+                    i.fa.fa-bell
+                    span.w3-badge.w3-right.w3-small.w3-green 3
+                // Ao clicar numa notificação ir para a página referente
+                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
+                    a.w3-bar-item.w3-button(href='#') One new friend request
+                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
+                    a.w3-bar-item.w3-button(href='#') Jane likes your post
+    // Page Container
+    .w3-content(style='max-width:1400px;margin-top:50px')
+        // The Grid
+        .w3-row
+            header.w3-container.w3-white
+                h2.w3-center(style="color:#006683") Eventos
+            
+            table.w3-table-all
+                -var i = 0
+                - while(i < items.length)
+                    -var item = items[i]
+                    if (item.tipo.dataInicio)
+                        tr
+                            td(style="width:50%")
+                                p.w3-text-theme
+                                    b=item.titulo
+                                if (item.local)
+                                    p
+                                        i.fa.fa-home.w3-text-theme
+                                        | &nbsp;&nbsp;
+                                        u Local:
+                                        | &nbsp;
+                                        span=item.local
+                                p
+                                    i.fa.fa-calendar-check-o.w3-text-theme
+                                    | &nbsp;&nbsp;
+                                    u Início:
+                                    | &nbsp;
+                                    span=item.tipo.dataInicio
+                                p
+                                    i.fa.fa-calendar-times-o.w3-text-theme
+                                    | &nbsp;&nbsp;
+                                    u Fim:
+                                    | &nbsp;
+                                    span=item.tipo.dataFim
+                                if (item.descricao)
+                                    p
+                                        i.fa.fa-pencil.w3-text-theme
+                                        | &nbsp;&nbsp;
+                                        u Descrição:
+                                        | &nbsp;
+                                        span=item.descricao
+                                p
+                                    i.fa.fa-group.w3-text-theme
+                                    | &nbsp;&nbsp;
+                                    u Participantes:
+                                    ul(id="participantes")
+                                        each p in item.tipo.participantes
+                                            li=p
+                                .w3-center
+                                    form(action="/item/"+item._id method="POST")
+                                        input(type="hidden" name="participantes" value=item.tipo.participantes)
+                                        button.w3-button.w3-theme-d2(id="aderir") Aderir
+                                -i++
+                                br
+                            -var check = false
+                            -while(!check)
+                                -if(i < items.length)
+                                    -var item = items[i]
+                                    if (item.tipo.dataInicio)
+                                        -check = true
+                                        td(style="width:50%")
+                                            p.w3-text-theme
+                                                b=item.titulo
+                                            if (item.local)
+                                                p
+                                                    i.fa.fa-home.w3-text-theme
+                                                    | &nbsp;&nbsp;
+                                                    u Local:
+                                                    | &nbsp;
+                                                    span=item.local
+                                            p
+                                                i.fa.fa-calendar-check-o.w3-text-theme
+                                                | &nbsp;&nbsp;
+                                                u Início:
+                                                | &nbsp;
+                                                span=item.tipo.dataInicio
+                                            p
+                                                i.fa.fa-calendar-times-o.w3-text-theme
+                                                | &nbsp;&nbsp;
+                                                u Fim:
+                                                | &nbsp;
+                                                span=item.tipo.dataFim
+                                            if (item.descricao)
+                                                p
+                                                    i.fa.fa-pencil.w3-text-theme
+                                                    | &nbsp;&nbsp;
+                                                    u Descrição:
+                                                    | &nbsp;
+                                                    span=item.descricao
+                                            p
+                                                i.fa.fa-group.w3-text-theme
+                                                | &nbsp;&nbsp;
+                                                u Participantes:
+                                                ul
+                                                    each p in item.tipo.participantes
+                                                        li=p
+                                            .w3-center
+                                                form(action="/item/"+item._id method="POST")
+                                                    input(type="hidden" name="participantes" value=item.tipo.participantes)
+                                                    button.w3-button.w3-theme-d2(id="aderir") Aderir
+                                            br
+                                    -i++
+                                -else
+                                    -check = true
+                                    td(style="width:50%")

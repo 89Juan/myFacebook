@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 var passport = require('passport')
+var formidable = require('formidable')
 
 
 // Página inicial (autenticação e registo)
@@ -44,7 +45,7 @@ router.get('/feed', verificaAutenticacao, (req, res) => {
   res.render('feed')
 })
 
-
+// Lista dos utilizadores
 router.get('/utilizadores', function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
     .then(resposta=> res.render('utilizadores', { utilizadores: resposta.data }))
@@ -52,6 +53,38 @@ router.get('/utilizadores', function(req, res, next) {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
     })
+});
+
+router.get('/utilizador/:email', function(req, res, next) {
+  axios.get('http://localhost:2018/api/utilizador/' + req.params.email)
+    .then(resposta=> res.render('perfil', { utilizador: resposta.data }))
+    .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
+    })
+});
+
+router.get('/items', function(req, res, next) {
+  axios.get('http://localhost:2018/api/items', { params: req.query })
+    .then(resposta=> res.render('eventos', { items: resposta.data }))
+    .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
+    })
+});
+
+router.post('/item/:iid', function(req, res, next) {
+  var participantes = JSON.parse(req.body.participantes)
+  console.log(typeof participantes)
+  participantes.push(req.user.nome)
+  //split("]")[0]+',\"'+req.user.nome+'\"]'
+  console.log(participantes)
+      axios.put('http://localhost:2018/api/item/'+req.params.iid+'/participantes', participantes)
+        .then(resposta=> {console.log(resposta.data); res.redirect('/items')})
+        .catch(erro => {
+          console.log('Erro ao carregar dados da BD.')
+          res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
+      })
 });
 
 router.get('/utilizador/:uid', function(req, res, next) {
