@@ -2,13 +2,13 @@ var Utilizador = require('../../models/utilizador')
 var Item = require('../../models/item')
 
 // Lista de utilizadores
-module.exports.listarUt = () => {
+module.exports.listarUt = (query) => {
     return Utilizador
-        .find()
+        .find(query)
         .exec()
 }
 
-// Devolve informação de um utilizador
+// Devolve informação de um utilizador por email
 module.exports.consultar = email => {
     return Utilizador
         .findOne({email: email})

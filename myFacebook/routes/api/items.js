@@ -5,7 +5,7 @@ var Item = require('../../controllers/api/item')
 // API para os items
 
 router.get('/items', (req,res) => {
-    Item.listar()
+    Item.listar(req.query)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na listagem de itemes.'))
 })

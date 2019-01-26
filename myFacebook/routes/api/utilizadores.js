@@ -11,7 +11,7 @@ router.get('/utilizador/login/:email', (req, res) => {
 })
 
 router.get('/utilizadores', (req,res) => {
-    Utilizador.listarUt()
+    Utilizador.listarUt(req.query)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na listagem de utilizadores.'))
 })

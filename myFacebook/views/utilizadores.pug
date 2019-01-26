@@ -14,8 +14,8 @@ block content
                 b(style="font-size:14px") &nbsp;&nbsp;Utilizador
             .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
                 .search-container
-                    form(action='/utilizador/:id')
-                        input(type='text' placeholder='Pesquisar...' name='pesquisa')
+                    form(action='/utilizadores/')
+                        input(type='text' placeholder='Pesquisar...' name='nome')
                         | &nbsp;
                         button.w3-button.w3-hover-white(type='submit')
                             i.fa.fa-search
@@ -57,7 +57,7 @@ block content
                                 .w3-container(style="width:605px;vertical-align:top")
                                     i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
                                     span
-                                        a(href="/utilizador/"+u._id)=u.nome
+                                        a(href="/utilizador/"+u.email)=u.nome
                                     br
                                     i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
                                     span=u.email
