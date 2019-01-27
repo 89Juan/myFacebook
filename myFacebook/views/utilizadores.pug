@@ -42,63 +42,80 @@ block content
     .w3-content(style='max-width:1400px;margin-top:50px')
         // The Grid
         .w3-row
-            header.w3-container.w3-white
+            header.w3-container
                 h2.w3-center(style="color:#006683") Utilizadores
-            
-            table.w3-table-all
-                -var i = 0
-                - while(i < utilizadores.length)
-                    tr
-                        -var u = utilizadores[i]
-                        td(style="vertical-align:middle;width:50%")
-                            div(class="image-txt-container")
-                                img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
-                                | &nbsp;
-                                .w3-container(style="width:605px;vertical-align:top")
-                                    i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
-                                    span
-                                        a(href="/utilizador/"+u.email)=u.nome
-                                    br
-                                    i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
-                                    span=u.email
-                                    br
-                                    i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
-                                    span=u.morada
-                                    br
-                                    -if (u.sexo == "Feminino")
-                                        i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
-                                    -else if(u.sexo == "Masculino")
-                                        i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
-                                    -else
-                                        i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
-                                    span=u.sexo
+            -var i = 0
+            -if(i < utilizadores.length && utilizadores[i].email != user.email)
+                table.w3-table-all
+                    - while(i < utilizadores.length)
+                        -var check = false
+                        -while(!check)
+                            -if (i < utilizadores.length)
+                                -var u = utilizadores[i]
+                                -if(u.email != user.email)  
+                                    tr 
+                                        td(style="vertical-align:middle;width:50%")
+                                            div(class="image-txt-container")
+                                                img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                | &nbsp;
+                                                .w3-container(style="width:605px;vertical-align:top")
+                                                    i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
+                                                    span
+                                                        a(href="/utilizador/"+u.email)=u.nome
+                                                    br
+                                                    i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
+                                                    span=u.email
+                                                    br
+                                                    i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
+                                                    span=u.morada
+                                                    br
+                                                    -if (u.sexo == "Feminino")
+                                                        i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
+                                                    -else if(u.sexo == "Masculino")
+                                                        i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
+                                                    -else
+                                                        i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
+                                                    span=u.sexo
+                                                    -i++
+                                                    br
+                                        -while(!check)
+                                            -if (i < utilizadores.length)
+                                                -var u = utilizadores[i]
+                                                -if(u.email != user.email)
+                                                    -check = true
+                                                    td(style="vertical-align:middle;width:50%")
+                                                        div(class="image-txt-container")
+                                                            img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                            | &nbsp;
+                                                            .w3-container(style="width:605px;vertical-align:top")
+                                                                i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
+                                                                span
+                                                                    a(href="/utilizador/"+u._id)=u.nome
+                                                                br
+                                                                i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
+                                                                span=u.email
+                                                                br
+                                                                i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
+                                                                span=u.morada
+                                                                br
+                                                                -if (u.sexo == "Feminino")
+                                                                    i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
+                                                                -else if(u.sexo == "Masculino")
+                                                                    i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
+                                                                -else
+                                                                    i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
+                                                                span=u.sexo
+                                                                -i++
+                                                                br
+                                                -else
+                                                    -i++
+                                            -else
+                                                -check = true
+                                                td(style="width:50%")
+                                -else
                                     -i++
-                                    br
-                        -if(i < utilizadores.length)
-                            -var u = utilizadores[i]
-                            td(style="vertical-align:middle;width:50%")
-                                div(class="image-txt-container")
-                                    img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
-                                    | &nbsp;
-                                    .w3-container(style="width:605px;vertical-align:top")
-                                        i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
-                                        span
-                                            a(href="/utilizador/"+u._id)=u.nome
-                                        br
-                                        i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
-                                        span=u.email
-                                        br
-                                        i.fa.fa-home(style="color:#006683") &nbsp;&nbsp;
-                                        span=u.morada
-                                        br
-                                        -if (u.sexo == "Feminino")
-                                            i.fa.fa-venus(style="color:#006683") &nbsp;&nbsp;
-                                        -else if(u.sexo == "Masculino")
-                                            i.fa.fa-mars(style="color:#006683") &nbsp;&nbsp;
-                                        -else
-                                            i.fa.fa-genderless(style="color:#006683") &nbsp;&nbsp;
-                                        span=u.sexo
-                                        -i++
-                                        br
-                        -else
-                            td(style="width:50%")
+                            -else
+                                -check = true
+                                td(style="width:50%")
+                                td(style="width:50%")
+                    

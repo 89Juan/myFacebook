@@ -53,7 +53,7 @@ router.get('/feed', verificaAutenticacao, (req, res) => {
 // Lista dos utilizadores
 router.get('/utilizadores', function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
-    .then(resposta=> res.render('utilizadores', { utilizadores: resposta.data }))
+    .then(resposta=> res.render('utilizadores', { utilizadores: resposta.data, user: req.user }))
     .catch(erro => {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
