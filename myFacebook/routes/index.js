@@ -43,7 +43,7 @@ function verificaAutenticacao(req, res, next) {
 // Página principal
 router.get('/feed', verificaAutenticacao, (req, res) => {
   axios.get('http://localhost:2018/api/items?id_utilizador='+req.user._id)
-  .then(resposta => res.render('feed', { user: req.user, items: resposta.data }))
+  .then(resposta => res.render('feed', { user: req.user, items: resposta.data.sort((a,b) => a.data>b.data)}))
   .catch(erro => {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})

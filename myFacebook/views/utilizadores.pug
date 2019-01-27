@@ -45,7 +45,7 @@ block content
             header.w3-container
                 h2.w3-center(style="color:#006683") Utilizadores
             -var i = 0
-            -if(i < utilizadores.length && utilizadores[i].email != user.email)
+            -if(utilizadores.length > 1)
                 table.w3-table-all
                     - while(i < utilizadores.length)
                         -var check = false
@@ -90,7 +90,7 @@ block content
                                                             .w3-container(style="width:605px;vertical-align:top")
                                                                 i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
                                                                 span
-                                                                    a(href="/utilizador/"+u._id)=u.nome
+                                                                    a(href="/utilizador/"+u.email)=u.nome
                                                                 br
                                                                 i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
                                                                 span=u.email

@@ -21,7 +21,7 @@ var ComentarioSchema = new Schema({
 var ItemSchema = new Schema({
     id_utilizador: {type: Schema.Types.ObjectId, ref: 'Utilizador', required: true},
     titulo: {type: String, required: true},
-    data: {type: String},
+    data: {type: String, default: new Date().getTime()},
     tipo: {type: Schema.Types.Mixed, enum: [AlbumSchema, EventoSchema, 'Ideia'], default: 'Ideia'},
     local: {type: String},
     elementos: {type: [String], required: true},

@@ -77,7 +77,7 @@ block content
                         p
                             -if (user.sexo == "Feminino")
                                 i.fa.fa-venus.fa-fw.w3-margin-right.w3-text-theme
-                            -else if(utilizador.sexo == "Masculino")
+                            -else if(user.sexo == "Masculino")
                                 i.fa.fa-mars.fa-fw.w3-margin-right.w3-text-theme
                             -else
                                 i.fa.fa-genderless.fa-fw.w3-margin-right.w3-text-theme
@@ -139,7 +139,7 @@ block content
                         .w3-card.w3-round.w3-white
                             .w3-container.w3-padding
                                 h6.w3-opacity Em que estás a pensar?
-                                p.w3-border.w3-padding(contenteditable='true') A minha vida...
+                                p.w3-border.w3-padding(contenteditable='true', id='ideia') A minha vida...
                                 button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
                                     i.fa.fa-pencil-square-o
                                     |  &nbsp;Publicar
@@ -291,13 +291,12 @@ block content
                             br
                             .hr.w3-clear
                             // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                            form(method='POST' action='/gostar/')
-                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                                    i.fa.fa-thumbs-o-up
-                                    = 'Gostos (' +  item.gostos +')'
-                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
-                                    i.fa.fa-comment-o
-                                    = 'Comentarios (' +  item.comentarios.length +')'
+                            button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
+                                i.fa.fa-thumbs-o-up
+                                = 'Gostos (' +  item.gostos +')'
+                            button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
+                                i.fa.fa-comment-o
+                                = 'Comentarios (' +  item.comentarios.length +')'
                             each comentario in item.comentarios
                                 .hr
                                 div(class="image-txt-container")
@@ -315,13 +314,12 @@ block content
                                 -if(item.comentarios.length == 0)
                                 .hr
                                 .w3-container
-                                    form(action='/' method='POST' enctype='multipart/form-data')
-                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                        | &nbsp; &nbsp; &nbsp;
-                                        textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
-                                        button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
-                                            i.fa.fa-comment-o
-                                            |  &nbsp;Comentar
+                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                    | &nbsp; &nbsp; &nbsp;
+                                    textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                    button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
+                                        i.fa.fa-comment-o
+                                        |  &nbsp;Comentar
                                 br
 
             // End Middle Column
@@ -370,3 +368,55 @@ block content
           modal.style.display = "none";
         }
       }
+
+      document.getElementById('publicar').onclick = () => {
+          var desc = document.getElementById('ideia').textContent;
+          var user_id = "#{user._id}";
+          fetch("http://localhost:2018/api/item", {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+              body: JSON.stringify({
+                  id_utilizador: user_id,
+                  titulo: 'Ideia',
+                  tipo: 'Ideia',
+                  descricao: desc})
+          }).then(r => window.location.assign("http://localhost:2018/feed"))
+      }
+
+      Array.from(document.getElementsByClassName('gosto')).map(el => {
+          el.onclick = () => {
+            var item_id = el.classList[el.classList.length-1]
+            fetch("http://localhost:2018/api/item/"+item_id+"/like", {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+            }
+            ).then(r => window.location.assign("http://localhost:2018/feed"))
+          }
+      })
+
+      Array.from(document.getElementsByClassName('comentarios')).map(el => {
+          el.onclick = () => {
+            var item_id = el.classList[el.classList.length-1];
+            var comment = document.getElementById("comentario").value
+            fetch("http://localhost:2018/api/item/"+item_id+"/comentario", {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+              body: JSON.stringify({
+                  descricao: comment
+              })
+            }
+            ).then(r => window.location.assign("http://localhost:2018/feed"))
+          }
+      })
