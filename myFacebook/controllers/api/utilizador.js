@@ -29,11 +29,11 @@ module.exports.inserir = utilizador => {
 }
 
 // Atualiza utilizador
-module.exports.atualizar = (uid,utilizador) => {
-    return Utilizador
-        .findOne({_id: uid})
-        .update(utilizador)
-        .exec()
+module.exports.atualizar = (uid, utilizador) => {
+  return Utilizador
+      .update({_id: uid},
+        {$set:utilizador})
+      .exec()
 }
 
 // Remove utilizador
