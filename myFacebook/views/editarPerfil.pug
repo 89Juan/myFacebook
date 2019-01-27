@@ -1,0 +1,77 @@
+extends layout
+
+block content
+    // Barra de Navegação
+    .w3-top
+        .w3-bar.w3-theme-d2.w3-left-align.w3-large
+            // Ao clicar neste botão ir para o feed
+            a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
+                i.fa.fa-facebook.w3-margin-right
+                | myFacebook
+            // Ao clicar neste botão ir para a página de perfil
+            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
+                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
+                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
+            .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
+                .search-container
+                    form(action='/utilizadores/')
+                        input(type='text' placeholder='Pesquisar...' name='nome')
+                        | &nbsp;
+                        button.w3-button.w3-hover-white(type='submit')
+                            i.fa.fa-search
+            // Ao clicar neste botão ir para a página inicial (login/registo)
+            form(action='/utilizador/logout' method='POST')
+                button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
+                    i.fa.fa-power-off
+            // Ao clicar neste botão mostrar os users (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
+                i.fa.fa-group
+            // Ao clicar neste botão mostrar os eventos (nova página)
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/items' title='Eventos')
+                i.fa.fa-calendar-check-o
+            .w3-dropdown-hover.w3-right.w3-hide-small
+                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
+                    i.fa.fa-bell
+                    span.w3-badge.w3-right.w3-small.w3-green 3
+                // Ao clicar numa notificação ir para a página referente
+                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
+                    a.w3-bar-item.w3-button(href='#') One new friend request
+                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
+                    a.w3-bar-item.w3-button(href='#') Jane likes your post
+    // Page Container
+    .w3-content(style='max-width:1400px;margin-top:50px')
+        // The Grid
+        .w3-row
+            header.w3-container
+                h2.w3-center(style="color:#006683") Editar Perfil
+            br
+            form.w3-container(action='/utilizador/'+user._id method='POST')
+                b.w3-text-theme Nome
+                br(style="line-height:30px;")
+                input.w3-input.w3-border(name='nome' type='text' placeholder=user.nome)
+                br
+                b.w3-text-theme Password
+                br(style="line-height:30px;")
+                input.w3-input.w3-border(name='password' type='password' placeholder='*******')
+                br
+                b.w3-text-theme Data de Nascimento
+                br(style="line-height:30px;")
+                input.w3-input.w3-border(id="date" name="dataNasc" placeholder=user.dataNasc class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')") 
+                br
+                b.w3-text-theme Morada
+                br(style="line-height:30px;")
+                input.w3-input.w3-border(id="morada" name="morada" placeholder=user.morada type="text") 
+                br
+                b.w3-text-theme Género
+                br(style="line-height:30px;")
+                input(id="sexo" name="sexo" type="radio" value="Feminino")
+                | &nbsp;Feminino &nbsp;&nbsp;
+                input(id="sexo" name="sexo" type="radio" value="Masculino")
+                | &nbsp;Masculino &nbsp;&nbsp;
+                input(id="sexo" name="sexo" type="radio" value="Outro")
+                | &nbsp;Outro
+                br
+                br
+                .w3-center
+                    input.w3-btn.w3-theme-d2(type='submit' value='Confirmar')
+                br

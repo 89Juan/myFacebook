@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 var passport = require('passport')
-var formidable = require('formidable')
+var bcrypt = require('bcrypt')
 
 
 // Página inicial (autenticação e registo)
@@ -51,7 +51,7 @@ router.get('/feed', verificaAutenticacao, (req, res) => {
 });
 
 // Lista dos utilizadores
-router.get('/utilizadores', function(req, res, next) {
+router.get('/utilizadores', verificaAutenticacao, function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
     .then(resposta=> res.render('utilizadores', { utilizadores: resposta.data, user: req.user }))
     .catch(erro => {
@@ -60,7 +60,7 @@ router.get('/utilizadores', function(req, res, next) {
     })
 });
 
-router.get('/utilizador/:email', function(req, res, next) {
+router.get('/utilizador/:email', verificaAutenticacao, function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizador/' + req.params.email)
     .then(resposta=> res.render('perfil', { utilizador: resposta.data }))
     .catch(erro => {
@@ -69,7 +69,7 @@ router.get('/utilizador/:email', function(req, res, next) {
     })
 });
 
-router.get('/items', function(req, res, next) {
+router.get('/items', verificaAutenticacao, function(req, res, next) {
   axios.get('http://localhost:2018/api/items', { params: req.query })
     .then(resposta=> res.render('eventos', { items: resposta.data }))
     .catch(erro => {
@@ -78,19 +78,47 @@ router.get('/items', function(req, res, next) {
     })
 });
 
-router.post('/item/:iid', function(req, res, next) {
+router.post('/item/:iid', verificaAutenticacao, function(req, res, next) {
   var participantes = JSON.parse(req.body.participantes)
-  console.log(typeof participantes)
   participantes.push(req.user.nome)
-  //split("]")[0]+',\"'+req.user.nome+'\"]'
-  console.log(participantes)
       axios.put('http://localhost:2018/api/item/'+req.params.iid+'/participantes', participantes)
-        .then(resposta=> {console.log(resposta.data); res.redirect('/items')})
+        .then(() => res.redirect('/items'))
         .catch(erro => {
           console.log('Erro ao carregar dados da BD.')
           res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
       })
 });
+
+router.get('/editarPerfil', verificaAutenticacao, function(req, res, next) {
+  res.render('editarPerfil', {user: req.user})
+});
+
+router.post('/utilizador/:uid', async function(req, res) {
+  var nome = req.body.nome
+  if (nome == '')
+    nome = req.user.nome
+  var password = req.body.password
+  if (password == '')
+    password = req.user.password
+  else
+    password = await bcrypt.hash(password, 10)
+  var dataNasc = req.body.dataNasc
+  if (dataNasc == '')
+    dataNasc = req.user.dataNasc
+  var morada = req.body.morada
+  if (morada == '')
+    morada = req.user.morada
+  var sexo = req.body.sexo
+  if (!sexo)
+    sexo = req.user.sexo
+  axios.put('http://localhost:2018/api/utilizador/' + req.params.uid, {nome, password, dataNasc, morada, sexo})
+    .then(() => res.redirect('/feed')) 
+    .catch(erro => {
+      console.log('Erro ao inserir dados na BD.')
+      res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
+    })
+});
+
 
 router.get('/utilizador/:uid', function(req, res, next) {
   axios.get('http://localhost:2018/api/utilizador/' + req.params.uid)
@@ -119,14 +147,7 @@ router.post('/utilizador', function(req, res) {
     })
 });
 
-router.put('/utilizador/:uid', function(req, res) {
-  axios.put('http://localhost:2018/api/utilizadores/' + req.params.uid, req.body)
-    .then(()=> res.redirect('http://localhost:2018/utilizadores')) 
-    .catch(erro => {
-      console.log('Erro ao inserir dados na BD.')
-      res.redirect('http://localhost:2018/utilizadores')
-    })
-});
+
 
 router.delete('/utilizador/:uid', function(req, res) {
   axios.delete('http://localhost:2018/api/utilizadores/' + req.params.uid)
