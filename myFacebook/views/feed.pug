@@ -166,13 +166,12 @@ block content
                             br
                             .hr.w3-clear
                             // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                            form(method='POST' action='/gostar/')
-                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                                    i.fa.fa-thumbs-o-up
-                                    = 'Gostos (' +  item.gostos +')'
-                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
-                                    i.fa.fa-comment-o
-                                    = 'Comentarios (' +  item.comentarios.length +')'
+                            button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                i.fa.fa-thumbs-o-up
+                                = 'Gostos (' +  item.gostos +')'
+                            button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
+                                i.fa.fa-comment-o
+                                = 'Comentarios (' +  item.comentarios.length +')'
                             each comentario in item.comentarios
                                 .hr
                                 div(class="image-txt-container")
@@ -190,13 +189,12 @@ block content
                                 -if(item.comentarios.length == 0)
                                 .hr
                                 .w3-container
-                                    form(action='/' method='POST' enctype='multipart/form-data')
-                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                        | &nbsp; &nbsp; &nbsp;
-                                        textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
-                                        button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
-                                            i.fa.fa-comment-o
-                                            |  &nbsp;Comentar
+                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                    | &nbsp; &nbsp; &nbsp;
+                                    textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                    button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
+                                        i.fa.fa-comment-o
+                                        |  &nbsp;Comentar
                                 br
                         -if(item.tipo.dataInicio)
                             .w3-content(style='max-width:1400px;margin-top:50px')
@@ -250,13 +248,12 @@ block content
                                                     br
                                                     .hr.w3-clear
                                                     // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                                                    form(method='POST' action='/gostar/')
-                                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                                                            i.fa.fa-thumbs-o-up
-                                                            = 'Gostos (' +  item.gostos +')'
-                                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
-                                                            i.fa.fa-comment-o
-                                                            = 'Comentarios (' +  item.comentarios.length +')'
+                                                    button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                                        i.fa.fa-thumbs-o-up
+                                                        = 'Gostos (' +  item.gostos +')'
+                                                    button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
+                                                        i.fa.fa-comment-o
+                                                        = 'Comentarios (' +  item.comentarios.length +')'
                                                     each comentario in item.comentarios
                                                         .hr
                                                         div(class="image-txt-container")
@@ -270,17 +267,16 @@ block content
                                                                     div(style="margin-left:10px")
                                                                         p=comentario.descricao
                                                         br
-                                                        #Demo5.w3-hide
+                                                    #Demo5.w3-hide
                                                         -if(item.comentarios.length == 0)
                                                         .hr
                                                         .w3-container
-                                                            form(action='/' method='POST' enctype='multipart/form-data')
-                                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                                                | &nbsp; &nbsp; &nbsp;
-                                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
-                                                                button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
-                                                                    i.fa.fa-comment-o
-                                                                    |  &nbsp;Comentar
+                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                            | &nbsp; &nbsp; &nbsp;
+                                                            textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                                            button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
+                                                                i.fa.fa-comment-o
+                                                                |  &nbsp;Comentar
                                                         br
                         -if(item.tipo == 'Ideia')
                             br
