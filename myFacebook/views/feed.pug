@@ -142,10 +142,10 @@ block content
                                 button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
                                     i.fa.fa-pencil-square-o
                                     |  &nbsp;Publicar
-                                button.w3-button.w3-hover-white(type='button')
+                                div.w3-button.w3-hover-white(type='button' href="/album")
                                     a(style="text-decoration: none" href="/album")
                                         i.fa.fa-camera
-                                button.w3-button.w3-hover-white(type='button')
+                                div.w3-button.w3-hover-white(type='button')
                                     a(style="text-decoration: none" href="/evento")
                                         i.fa.fa-calendar
                 each item in items
@@ -202,7 +202,7 @@ block content
                                         br
                                         .hr.w3-clear
                                         // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                        button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
                                             i.fa.fa-thumbs-o-up
                                             = 'Gostos (' +  item.gostos +')'
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
@@ -215,19 +215,21 @@ block content
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
-                                                        b(style="color:#006683")=comentario.id_utilizador
+                                                        each u in users
+                                                            -if(u._id == comentario.id_utilizador)
+                                                                b(style="color:#006683")=u.nome
 
                                                     .w3-border.w3-round.w3-light-grey
                                                         div(style="margin-left:10px")
                                                             p=comentario.descricao
                                             br
-                                        #Demo5.w3-hide
+                                        #Demo5
                                             -if(item.comentarios.length == 0)
                                             .hr
                                             .w3-container
                                                 img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
                                                 | &nbsp; &nbsp; &nbsp;
-                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                 button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
                                                     i.fa.fa-comment-o
                                                     |  &nbsp;Comentar
@@ -284,7 +286,7 @@ block content
                                         br
                                         .hr.w3-clear
                                         // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                        button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
                                             i.fa.fa-thumbs-o-up
                                             = 'Gostos (' +  item.gostos +')'
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
@@ -297,19 +299,21 @@ block content
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
-                                                        b(style="color:#006683")=comentario.id_utilizador
+                                                        each u in users
+                                                            -if(u._id == comentario.id_utilizador)
+                                                                b(style="color:#006683")=u.nome
 
                                                     .w3-border.w3-round.w3-light-grey
                                                         div(style="margin-left:10px")
                                                             p=comentario.descricao
                                             br
-                                        #Demo5.w3-hide
+                                        #Demo5
                                             -if(item.comentarios.length == 0)
                                             .hr
                                             .w3-container
                                                 img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
                                                 | &nbsp; &nbsp; &nbsp;
-                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                 button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
                                                     i.fa.fa-comment-o
                                                     |  &nbsp;Comentar
@@ -343,19 +347,21 @@ block content
                                     | &nbsp;
                                     .w3-container(style="width:605px;vertical-align:top")
                                         p 
-                                            b(style="color:#006683")=comentario.id_utilizador
+                                            each u in users
+                                                -if(u._id == comentario.id_utilizador)
+                                                    b(style="color:#006683")=u.nome
 
                                         .w3-border.w3-round.w3-light-grey
                                             div(style="margin-left:10px")
                                                 p=comentario.descricao
                                 br
-                            div.w3-hide(id="#{item._id}")
+                            #Demo5
                                 -if(item.comentarios.length == 0)
                                 .hr
                                 .w3-container
                                     img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
                                     | &nbsp; &nbsp; &nbsp;
-                                    textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                    textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                     button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
                                         i.fa.fa-comment-o
                                         |  &nbsp;Comentar
@@ -363,17 +369,30 @@ block content
 
             // End Middle Column
             // Right Column
-            .w3-col.m2
-                .w3-card.w3-round.w3-white.w3-center
-                    .w3-container
-                        p Eventos em breve:
-                        img(src='/images/user.png' alt='Forest' style='width:100%;')
-                        p
-                            strong Holiday
-                        p Friday 15:00
-                        p
-                            button.w3-button.w3-block.w3-theme-l4 Info
-                br
+            - if(evento != undefined)
+                .w3-col.m2
+                    .w3-card.w3-round.w3-white.w3-center
+                        .w3-container
+                            p Eventos em breve:
+                            p
+                                b=evento.titulo
+                            i.fa.fa-group.w3-text-theme
+                            | &nbsp;&nbsp;
+                            u Participantes:
+                            ul(id="participantes")
+                                each p in evento.tipo.participantes
+                                    each u in users
+                                        -if(u._id == p)
+                                            li=u.nome
+                            p
+                                strong=evento.dataInicio
+                            p
+                                u Descrição:
+                            p=evento.descricao
+                            p
+                                .w3-button.w3-block.w3-theme-l4
+                                    a(href='/items') Ver eventos
+                    br
             // End Right Column
         // End Grid
     // End Page Container
@@ -444,7 +463,8 @@ block content
       Array.from(document.getElementsByClassName('comentarios')).map(el => {
           el.onclick = () => {
             var item_id = el.classList[el.classList.length-1];
-            var comment = document.getElementById("comentario").value
+            var comment = document.getElementById("comentario"+item_id).value
+            var user_id = "#{user._id}";
             fetch("http://localhost:2018/api/item/"+item_id+"/comentario", {
               method: 'POST',
               headers: {
@@ -453,7 +473,8 @@ block content
               },
               redirect: 'follow',
               body: JSON.stringify({
-                  descricao: comment
+                  descricao: comment,
+                  id_utilizador: user_id
               })
             }
             ).then(r => window.location.assign("http://localhost:2018/feed"))
