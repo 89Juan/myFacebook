@@ -24,7 +24,6 @@ var ItemSchema = new Schema({
     data: {type: String, default: new Date().getTime()},
     tipo: {type: Schema.Types.Mixed, enum: [AlbumSchema, EventoSchema, 'Ideia'], default: 'Ideia'},
     local: {type: String},
-    elementos: {type: [String], required: true},
     privacidade: {type: Boolean, default: true},
     gostos: {type: Number, default: 0},
     comentarios: {type: [ComentarioSchema], default: []}, 

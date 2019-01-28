@@ -8,10 +8,6 @@ block content
             a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
                 i.fa.fa-facebook.w3-margin-right
                 | myFacebook
-            // Ao clicar neste botão ir para a página de perfil
-            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
-                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
-                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
             .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
                 .search-container
                     form(action='/utilizadores/')
@@ -23,21 +19,12 @@ block content
             form(action='/utilizador/logout' method='POST')
                 button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
                     i.fa.fa-power-off
-            // Ao clicar neste botão mostrar os users (nova página)
+            // Ao clicar neste botão mostrar os utilizadores (nova página)
             a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
                 i.fa.fa-group
             // Ao clicar neste botão mostrar os eventos (nova página)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/items' title='Eventos')
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/eventos' title='Eventos')
                 i.fa.fa-calendar-check-o
-            .w3-dropdown-hover.w3-right.w3-hide-small
-                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
-                    i.fa.fa-bell
-                    span.w3-badge.w3-right.w3-small.w3-green 3
-                // Ao clicar numa notificação ir para a página referente
-                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
-                    a.w3-bar-item.w3-button(href='#') One new friend request
-                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
-                    a.w3-bar-item.w3-button(href='#') Jane likes your post
     // Page Container
     .w3-content(style='max-width:1400px;margin-top:50px')
         // The Grid
@@ -46,29 +33,29 @@ block content
                 h2.w3-center(style="color:#006683") Criar Evento
             br
             form.w3-container(action='/evento' method='POST')
-                b.w3-text-theme Nome
+                b.w3-text-theme Nome *
                 br(style="line-height:30px;")
                 input.w3-input.w3-border(name='titulo' type='text' placeholder="Ex: Festa de Aniversário")
                 br
                 b.w3-text-theme Descrição
                 br(style="line-height:30px;")
-                input.w3-input.w3-border(name='descricao' type='text' placeholder="Ex: Bueda fixe")
+                input.w3-input.w3-border(name='descricao' type='text' placeholder="Ex: 21º aniversário")
                 br
                 b.w3-text-theme Local
                 br(style="line-height:30px;")
                 input.w3-input.w3-border(name='local' type='text' placeholder="Ex: Rua das Flores")
                 br
-                b.w3-text-theme Data de início
+                b.w3-text-theme Data de início *
                 br(style="line-height:30px;")
                 input.w3-input.w3-border(id="date" name="dataInicio" placeholder="mm/dd/yyyy" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')")
                 br
-                b.w3-text-theme Data de fim
+                b.w3-text-theme Data de fim *
                 br(style="line-height:30px;")
                 input.w3-input.w3-border(id="date" name="dataFim" placeholder="mm/dd/yyyy" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')")
                 br
                 b.w3-text-theme Descritores
                 br(style="line-height:30px;")
-                input.w3-input.w3-border(id="descritores" name="descritores" type="text" placeholder="Ex: #familia") 
+                input.w3-input.w3-border(id="descritores" name="descritores" type="text" placeholder="Ex: #festa") 
                 br
                 b.w3-text-theme Privacidade
                 br(style="line-height:30px;")

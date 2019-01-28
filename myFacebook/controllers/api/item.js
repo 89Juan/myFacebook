@@ -75,7 +75,7 @@ module.exports.atualizaItem = (iid, item) => {
         .exec()
 }
 
-// Atualiza um item
+// Atualiza os participantes de um item
 module.exports.atualizaItemParticipantes = (iid, participantes) => {
     return Item
         .update({_id: iid},

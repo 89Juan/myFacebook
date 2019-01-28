@@ -51,7 +51,7 @@ router.get('/feed', verificaAutenticacao, async(req, res) => {
       res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
   });
 
-  var evento = items.filter(i => i.tipo.dataInicio).sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0));
+  var evento = await items.filter(i => i.tipo.dataInicio).sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0));
   if (evento.length > 0)
     evento = evento[0]
   else 
@@ -121,7 +121,7 @@ router.get('/utilizador/:uid', verificaAutenticacao, async function(req, res, ne
     })
 });
 
-router.get('/items', verificaAutenticacao, async function(req, res, next) {
+router.get('/eventos', verificaAutenticacao, async function(req, res, next) {
   var users
   await axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
     .then(resposta=> users = resposta.data)
@@ -141,7 +141,7 @@ router.post('/item/:iid', verificaAutenticacao, function(req, res, next) {
   var participantes = JSON.parse(req.body.participantes)
   participantes.push(req.user._id)
       axios.put('http://localhost:2018/api/item/'+req.params.iid+'/participantes', participantes)
-        .then(() => res.redirect('/items'))
+        .then(() => res.redirect('/eventos'))
         .catch(erro => {
           console.log('Erro ao carregar dados da BD.')
           res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
@@ -211,7 +211,9 @@ router.post('/album', verificaAutenticacao, function(req, res, next) {
     if (foto3 != "")
       fotos.push(foto3)
     var tipo = {fotos: fotos}
-    var descritores = fields.descritores.split(" ")
+    var descritores = []
+    if (fields.descritores != "")
+      descritores = fields.descritores.split(" ")
     var privacidade
     if (fields.privacidade == "true")
       privacidade = true
@@ -229,14 +231,15 @@ router.post('/album', verificaAutenticacao, function(req, res, next) {
 });
 
 router.post('/evento', verificaAutenticacao, function(req, res, next) {
-  console.log(req.body)
   var titulo = req.body.titulo
   var descricao = req.body.descricao
   var participantes = []
   participantes.push(req.user._id)
   var dataInicio = req.body.dataInicio
   var dataFim = req.body.dataFim
-  var descritores = req.body.descritores.split(" ")
+  var descritores = []
+  if (req.body.descritores != "")
+    descritores = req.body.descritores.split(" ")
   var local = req.body.local
   if (req.body.privacidade == "true")
     privacidade = true
@@ -280,11 +283,12 @@ router.post('/item/:iid/editar', verificaAutenticacao, async function(req, res, 
   var titulo = req.body.titulo
   if (titulo == "")
     titulo = item.titulo
-  console.log(titulo)
   var descricao = req.body.descricao
   if (descricao == "")
     descricao = item.descricao
-  var descritores = req.body.descritores.split(" ")
+  var descritores = []
+  if (req.body.descritores != "")
+    descritores = req.body.descritores.split(" ")
   if (descritores.length == 0)
     descritores = item.descritores
   var privacidade
@@ -329,11 +333,12 @@ router.post('/item/:iid/editarAlbum', verificaAutenticacao, async function(req, 
     var titulo = fields.titulo
     if (titulo == "")
       titulo = item.titulo
-    console.log(titulo)
     var descricao = fields.descricao
     if (descricao == "")
       descricao = item.descricao
-    var descritores = fields.descritores.split(" ")
+    var descritores = []
+    if (fields.descritores != "")
+      descritores = fields.descritores.split(" ")
     if (descritores.length == 0)
       descritores = item.descritores
     var privacidade
@@ -375,33 +380,5 @@ router.post('/item/:iid/editarAlbum', verificaAutenticacao, async function(req, 
   })
 });
 
-/*router.get('/utilizador/:uid/publicacoes', function(req, res, next) {
-  axios.get('http://localhost:2018/api/utilizador/' + req.params.uid + '/publicacoes')
-    .then(resposta=> res.render('publicacoes', { publicacoes: resposta.data }))
-    .catch(erro => {
-      console.log('Erro ao carregar dados da BD.')
-      res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
-    })
-});
-
-router.post('/utilizador', function(req, res) {
-  axios.post('http://localhost:2018/api/utilizadores', req.body)
-    .then(()=> res.redirect('http://localhost:2018/utilizadores')) 
-    .catch(erro => {
-      console.log('Erro ao inserir dados na BD.')
-      res.redirect('http://localhost:2018/utilizadores')
-    })
-});
-
-
-
-router.delete('/utilizador/:uid', function(req, res) {
-  axios.delete('http://localhost:2018/api/utilizadores/' + req.params.uid)
-    .then(()=> res.redirect('http://localhost:2018/utilizadores')) 
-    .catch(erro => {
-      console.log('Erro ao inserir dados na BD.')
-      res.redirect('http://localhost:2018/utilizadores')
-    })
-});*/
 
 module.exports = router;

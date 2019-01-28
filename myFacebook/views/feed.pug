@@ -8,10 +8,6 @@ block content
             a.w3-bar-item.w3-button.w3-padding-large.w3-hover-white(href='/feed')
                 i.fa.fa-facebook.w3-margin-right
                 | myFacebook
-            // Ao clicar neste botão ir para a página de perfil
-            //a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='/feed' title='Perfil')
-                img.w3-circle(src='/images/user.png' style='height:30px;width:30px' alt='Perfil')
-                b(style="font-size:14px") &nbsp;&nbsp;Utilizador
             .w3-bar-item.w3-hide-small.w3-padding-large(style='margin-left:142px')
                 .search-container
                     form(action='/utilizadores/')
@@ -23,19 +19,12 @@ block content
             form(action='/utilizador/logout' method='POST')
                 button.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(type='submit' title='Logout' style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
                     i.fa.fa-power-off
-            // Ao clicar neste botão mostrar os users (nova página)
+            // Ao clicar neste botão mostrar os utilizadores (nova página)
             a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/utilizadores' title='Utilizadores')
                 i.fa.fa-group
             // Ao clicar neste botão mostrar os eventos (nova página)
-            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/items' title='Eventos')
+            a.w3-bar-item.w3-button.w3-hide-small.w3-right.w3-padding-large.w3-hover-white(href='/eventos' title='Eventos')
                 i.fa.fa-calendar-check-o
-            .w3-dropdown-hover.w3-right.w3-hide-small
-                button.w3-button.w3-padding-large.w3-hover-white(title='Notificações')
-                    i.fa.fa-bell
-                    span.w3-badge.w3-right.w3-small.w3-green 3
-                // Ao clicar numa notificação ir para a página referente
-                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
-                    a.w3-bar-item.w3-button(href='#') One new friend request
     // Page Container
     .w3-container.w3-content(style='max-width:1400px;margin-top:80px')
         // The Grid
@@ -95,40 +84,23 @@ block content
                             |  Eventos
                         #Demo2.w3-hide.w3-container
                             .w3-row-padding
-                                each item in items
-                                    ul
-                                    -if(item.tipo.dataInicio)
-                                        li
-                                            a(href="#"+item._id)=item.titulo
+                                ul
+                                    each item in items
+                                        -if(item.tipo.dataInicio)
+                                            li
+                                                a(href="#"+item._id)=item.titulo
                                 br
                         button.w3-button.w3-block.w3-theme-l1.w3-left-align(onclick="myFunction('Demo4')")
                             i.fa.fa-camera.fa-fw.w3-margin-right
                             |  Álbuns
                         #Demo4.w3-hide.w3-container
                             .w3-row-padding
-                                each item in items
-                                    ul
-                                    -if(item.tipo.fotos)
-                                        li
-                                            a(href="#"+item._id)=item.titulo
+                                ul
+                                    each item in items
+                                        -if(item.tipo.fotos)
+                                            li
+                                                a(href="#"+item._id)=item.titulo
                                 br
-                br
-                // Interests
-                .w3-card.w3-round.w3-white.w3-hide-small
-                    .w3-container
-                        p Interests
-                        p
-                            span.w3-tag.w3-small.w3-theme-d5 News
-                            span.w3-tag.w3-small.w3-theme-d4 W3Schools
-                            span.w3-tag.w3-small.w3-theme-d3 Labels
-                            span.w3-tag.w3-small.w3-theme-d2 Games
-                            span.w3-tag.w3-small.w3-theme-d1 Friends
-                            span.w3-tag.w3-small.w3-theme Games
-                            span.w3-tag.w3-small.w3-theme-l1 Friends
-                            span.w3-tag.w3-small.w3-theme-l2 Food
-                            span.w3-tag.w3-small.w3-theme-l3 Design
-                            span.w3-tag.w3-small.w3-theme-l4 Art
-                            span.w3-tag.w3-small.w3-theme-l5 Photos
                 br
             // End Left Column
             // Middle Column
@@ -142,10 +114,10 @@ block content
                                 button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
                                     i.fa.fa-pencil-square-o
                                     |  &nbsp;Publicar
-                                div.w3-button.w3-hover-white(type='button' href="/album")
+                                button.w3-button.w3-hover-white(type='button')
                                     a(style="text-decoration: none" href="/album")
                                         i.fa.fa-camera
-                                div.w3-button.w3-hover-white(type='button')
+                                button.w3-button.w3-hover-white(type='button')
                                     a(style="text-decoration: none" href="/evento")
                                         i.fa.fa-calendar
                 each item in items
@@ -203,10 +175,17 @@ block content
                                         .hr.w3-clear
                                         // Ao clicar mudar o botão para fa.fa.thumbs-up azul
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
-                                            i.fa.fa-thumbs-o-up
-                                            = 'Gostos (' +  item.gostos +')'
+                                            -if(item.gostos > 0)
+                                                i.fa.fa-thumbs-o-up.w3-text-theme
+                                                |&nbsp;
+                                                span.w3-text-theme= 'Gostos (' +  item.gostos +')'
+                                            -else
+                                                i.fa.fa-thumbs-o-up
+                                                |&nbsp;
+                                                span= 'Gostos (' +  item.gostos +')'
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
                                             i.fa.fa-comment-o
+                                            |&nbsp;
                                             = 'Comentarios (' +  item.comentarios.length +')'
                                         each comentario in item.comentarios
                                             .hr
@@ -224,7 +203,6 @@ block content
                                                             p=comentario.descricao
                                             br
                                         #Demo5
-                                            -if(item.comentarios.length == 0)
                                             .hr
                                             .w3-container
                                                 img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
@@ -282,15 +260,31 @@ block content
                                                             u Descrição:
                                                             | &nbsp;
                                                             span=item.descricao
+                                                    -if(item.descritores.length > 0)
+                                                        p
+                                                            i.fa.fa-hashtag.w3-text-theme
+                                                            | &nbsp;&nbsp;
+                                                            u Descritores:
+                                                            | &nbsp;
+                                                            each descritor in item.descritores
+                                                                span=descritor
+                                                                |&nbsp;&nbsp;
                                                     -i++
                                         br
                                         .hr.w3-clear
                                         // Ao clicar mudar o botão para fa.fa.thumbs-up azul
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
-                                            i.fa.fa-thumbs-o-up
-                                            = 'Gostos (' +  item.gostos +')'
+                                            -if(item.gostos > 0)
+                                                i.fa.fa-thumbs-o-up.w3-text-theme
+                                                |&nbsp;
+                                                span.w3-text-theme= 'Gostos (' +  item.gostos +')'
+                                            -else
+                                                i.fa.fa-thumbs-o-up
+                                                |&nbsp;
+                                                span= 'Gostos (' +  item.gostos +')'
                                         button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
                                             i.fa.fa-comment-o
+                                            |&nbsp;
                                             = 'Comentarios (' +  item.comentarios.length +')'
                                         each comentario in item.comentarios
                                             .hr
@@ -308,7 +302,6 @@ block content
                                                             p=comentario.descricao
                                             br
                                         #Demo5
-                                            -if(item.comentarios.length == 0)
                                             .hr
                                             .w3-container
                                                 img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
@@ -331,14 +324,26 @@ block content
                             h4=user.nome
                             br
                             p=item.descricao
+                            -if(item.descritores.length > 0)
+                                p
+                                    each descritor in item.descritores
+                                        span=descritor
+                                        |&nbsp;&nbsp;
                             br
                             .hr.w3-clear
                             // Ao clicar mudar o botão para fa.fa.thumbs-up azul
                             button.w3-button.w3-margin-bottom(class="w3-hover-white gosto "+item._id)
-                                i.fa.fa-thumbs-o-up
-                                = 'Gostos (' +  item.gostos +')'
+                                -if(item.gostos > 0)
+                                    i.fa.fa-thumbs-o-up.w3-text-theme
+                                    |&nbsp;
+                                    span.w3-text-theme= 'Gostos (' +  item.gostos +')'
+                                -else
+                                    i.fa.fa-thumbs-o-up
+                                    |&nbsp;
+                                    span= 'Gostos (' +  item.gostos +')'
                             button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('#{item._id}')")
                                 i.fa.fa-comment-o
+                                |&nbsp;
                                 = 'Comentarios (' +  item.comentarios.length +')'
                             each comentario in item.comentarios
                                 .hr
@@ -356,7 +361,6 @@ block content
                                                 p=comentario.descricao
                                 br
                             #Demo5
-                                -if(item.comentarios.length == 0)
                                 .hr
                                 .w3-container
                                     img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
@@ -371,39 +375,48 @@ block content
             // Right Column
             - if(evento != undefined)
                 .w3-col.m2
-                    .w3-card.w3-round.w3-white.w3-center
+                    .w3-card.w3-round.w3-white
                         .w3-container
-                            p Eventos em breve:
-                            p
+                            h5.w3-center.w3-text-theme
+                                b Evento em breve:
+                            p.w3-center
                                 b=evento.titulo
-                            i.fa.fa-group.w3-text-theme
-                            | &nbsp;&nbsp;
-                            u Participantes:
-                            ul(id="participantes")
-                                each p in evento.tipo.participantes
-                                    each u in users
-                                        -if(u._id == p)
-                                            li=u.nome
+                            if (evento.local)
+                                p
+                                    i.fa.fa-home.w3-text-theme
+                                    | &nbsp;&nbsp;
+                                    u Local:
+                                    | &nbsp;
+                                    span=evento.local
                             p
-                                strong=evento.dataInicio
+                                i.fa.fa-calendar-check-o.w3-text-theme
+                                | &nbsp;&nbsp;
+                                u Início:
+                                | &nbsp;
+                                span=evento.tipo.dataInicio
                             p
-                                u Descrição:
-                            p=evento.descricao
+                                i.fa.fa-calendar-times-o.w3-text-theme
+                                | &nbsp;&nbsp;
+                                u Fim:
+                                | &nbsp;
+                                span=evento.tipo.dataFim
                             p
-                                .w3-button.w3-block.w3-theme-l4
-                                    a(href='/items') Ver eventos
+                                button.w3-button.w3-block.w3-theme-d2
+                                    a(style="text-decoration: none" href="/eventos/#"+evento._id) Detalhes
                     br
+            -else
+                .w3-col.m2
+                    .w3-card.w3-round.w3-white
+                        .w3-container
+                            h5.w3-center.w3-text-theme
+                                b Eventos em breve:
+                            p.w3-center Nada a apresentar...
+                    br
+
             // End Right Column
         // End Grid
     // End Page Container
     br
-    // Footer
-    //footer.w3-container.w3-theme-d3.w3-padding-16
-        h5 Footer
-    //footer.w3-container.w3-theme-d5
-        p
-            | Powered by 
-            a(href='https://www.w3schools.com/w3css/default.asp' target='_blank') w3.css
 
     script.
         // Get the modal

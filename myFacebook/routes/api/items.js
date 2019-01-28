@@ -27,21 +27,7 @@ router.post('/item/:iid/comentario', (req, res)=>{
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na inserção de um comentario.'))
 })
-/*
-// ESTA MAL
-router.put('/item/:id/comentario/', (req, res)=>{
-    Item.atualizaComentario(req.params.id, req.body)
-        .then(dados => res.jsonp(dados))
-        .catch(erro => res.status(500).send(erro+'Erro na atualização de um comentario.'))
-})
 
-// ESTA MAL
-router.delete('/item/:iid/comentario/', (req, res)=>{
-    Item.remover(req.params.iid, req.body)
-        .then(dados => res.jsonp(dados))
-        .catch(erro => res.status(500).send(erro+'Erro na remoção de um comentario.'))
-})
-*/
 router.put('/item/:iid', (req, res)=>{
     Item.atualizaItem(req.params.iid, req.body)
         .then(dados => res.jsonp(dados))
@@ -55,7 +41,6 @@ router.put('/item/:iid/participantes', (req, res)=>{
 })
 
 router.post('/item', (req, res)=>{
-    console.log(req.body)
     Item.inserir(req.body)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na atualização de um item.'))
