@@ -19,7 +19,7 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
 var axios = require('axios')
 var UserModel = require('./models/utilizador')
-var mongoexport = require('mongoexport-wrapper');
+
 
 var app = express();
 
@@ -96,19 +96,20 @@ mongoose.connect('mongodb://127.0.0.1:27017/myFacebook', {useNewUrlParser: true}
   .catch(()=> console.log('Mongo: erro na conexão.'))
 
 
-/*var opt = {
-  host : '127.0.0.1:27017',
-  db : 'myFacebook',
-  collection :'utilizadores',
-  out : 'utilizadores.json',
+const { exec } = require('child_process');
+
+function mongoimport(collection) {
+  exec('mongoimport --db myFacebook --collection '+collection+' --file ./files/'+collection+'.json --jsonArray', (err, stdout, stderr) => {
+    if (err) {
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
 }
-//mongoexport command should be in path variable
-//all options for mongoexport command can be used
- 
-mongoexport(opt,(err,result)=>{
-    if(err) console.log(err);
-    else console.log(result);
-});*/
+
+mongoimport('utilizadores')
+mongoimport('items')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

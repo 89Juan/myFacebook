@@ -5,6 +5,18 @@ var passport = require('passport')
 var bcrypt = require('bcrypt')
 var fs = require('fs')
 var formidable = require('formidable')
+const { exec } = require('child_process');
+
+
+function mongoexport(collection) {
+  exec('mongoexport --db myFacebook --collection '+collection+' --out ./files/'+collection+'.json --jsonArray', (err, stdout, stderr) => {
+    if (err) {
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+}
 
 
 // Página inicial (autenticação e registo)
@@ -24,6 +36,7 @@ router.post('/utilizador/registar', passport.authenticate('registar', {
   failureRedirect: '/'
 }))
 
+// Logout
 router.post('/utilizador/logout', verificaAutenticacao, (req, res) => {
   /*req.session.destroy(() => {
     res.clearCookie('connect.sid')
@@ -44,6 +57,8 @@ function verificaAutenticacao(req, res, next) {
 
 // Página principal
 router.get('/feed', verificaAutenticacao, async(req, res) => {
+  mongoexport('utilizadores')
+  mongoexport('items')
   var items
   await axios.get('http://localhost:2018/api/items').then(r => items = r.data)
   .catch(erro => {
@@ -121,7 +136,9 @@ router.get('/utilizador/:uid', verificaAutenticacao, async function(req, res, ne
     })
 });
 
+// Lista dos eventos
 router.get('/eventos', verificaAutenticacao, async function(req, res, next) {
+  mongoexport('items')
   var users
   await axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
     .then(resposta=> users = resposta.data)
@@ -148,6 +165,7 @@ router.post('/item/:iid', verificaAutenticacao, function(req, res, next) {
       })
 });
 
+// Editar perfil
 router.get('/editarPerfil', verificaAutenticacao, function(req, res, next) {
   res.render('editarPerfil', {user: req.user})
 });
