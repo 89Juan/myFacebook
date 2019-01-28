@@ -166,7 +166,7 @@ block content
                                                     button.w3-bar-item.w3-button(id="eliminar") Eliminar
                                         h4=user.nome
                                         header.w3-container
-                                        h4.w3-center.w3-text-theme Álbum
+                                            h4.w3-center.w3-text-theme Álbum
                                         table.w3-table-all
                                             tr.w3-light-grey
                                                 td(style="width:100%")
@@ -248,7 +248,7 @@ block content
                                                     button.w3-bar-item.w3-button(id="eliminar") Eliminar
                                         h4=user.nome
                                         header.w3-container
-                                        h4.w3-center.w3-text-theme Evento
+                                            h4.w3-center.w3-text-theme Evento
                                         table.w3-table-all
                                             tr.w3-light-grey
                                                 td(style="width:100%")
@@ -281,39 +281,39 @@ block content
                                                             | &nbsp;
                                                             span=item.descricao
                                                     -i++
-                                                    br
-                                                    .hr.w3-clear
-                                                    // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                                                    button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                                                        i.fa.fa-thumbs-o-up
-                                                        = 'Gostos (' +  item.gostos +')'
-                                                    button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
-                                                        i.fa.fa-comment-o
-                                                        = 'Comentarios (' +  item.comentarios.length +')'
-                                                    each comentario in item.comentarios
-                                                        .hr
-                                                        div(class="image-txt-container")
-                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                                                            | &nbsp;
-                                                            .w3-container(style="width:605px;vertical-align:top")
-                                                                p 
-                                                                    b(style="color:#006683")=comentario.id_utilizador
+                                        br
+                                        .hr.w3-clear
+                                        // Ao clicar mudar o botão para fa.fa.thumbs-up azul
+                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                            i.fa.fa-thumbs-o-up
+                                            = 'Gostos (' +  item.gostos +')'
+                                        button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('Demo5')")
+                                            i.fa.fa-comment-o
+                                            = 'Comentarios (' +  item.comentarios.length +')'
+                                        each comentario in item.comentarios
+                                            .hr
+                                            div(class="image-txt-container")
+                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                | &nbsp;
+                                                .w3-container(style="width:605px;vertical-align:top")
+                                                    p 
+                                                        b(style="color:#006683")=comentario.id_utilizador
 
-                                                                .w3-border.w3-round.w3-light-grey
-                                                                    div(style="margin-left:10px")
-                                                                        p=comentario.descricao
-                                                        br
-                                                    #Demo5.w3-hide
-                                                        -if(item.comentarios.length == 0)
-                                                        .hr
-                                                        .w3-container
-                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                                            | &nbsp; &nbsp; &nbsp;
-                                                            textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
-                                                            button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
-                                                                i.fa.fa-comment-o
-                                                                |  &nbsp;Comentar
-                                                        br
+                                                    .w3-border.w3-round.w3-light-grey
+                                                        div(style="margin-left:10px")
+                                                            p=comentario.descricao
+                                            br
+                                        #Demo5.w3-hide
+                                            -if(item.comentarios.length == 0)
+                                            .hr
+                                            .w3-container
+                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                | &nbsp; &nbsp; &nbsp;
+                                                textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario")
+                                                button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
+                                                    i.fa.fa-comment-o
+                                                    |  &nbsp;Comentar
+                                            br
                         -if(item.tipo == 'Ideia')
                             br
                             img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
