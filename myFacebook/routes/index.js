@@ -43,9 +43,30 @@ function verificaAutenticacao(req, res, next) {
 }
 
 // Página principal
-router.get('/feed', verificaAutenticacao, (req, res) => {
+router.get('/feed', verificaAutenticacao, async(req, res) => {
+  var items
+  await axios.get('http://localhost:2018/api/items').then(r => items = r.data)
+  .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
+  });
+
+  var evento = items.filter(i => i.tipo.dataInicio).sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0));
+  if (evento.length > 0)
+    evento = evento[0]
+  else 
+    evento = undefined
+
+  var users
+  await axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
+    .then(resposta=> users = resposta.data)
+    .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
+  })
+
   axios.get('http://localhost:2018/api/items?id_utilizador='+req.user._id)
-  .then(resposta => res.render('feed', { user: req.user, items: resposta.data.sort((a,b) => a.data>b.data)}))
+  .then(resposta => res.render('feed', { user: req.user, items: resposta.data.sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0)), evento: evento, users: users }))
   .catch(erro => {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
@@ -65,13 +86,35 @@ router.get('/utilizadores', verificaAutenticacao, function(req, res, next) {
 router.get('/utilizador/:uid', verificaAutenticacao, async function(req, res, next) {
   var items
   await axios.get('http://localhost:2018/api/items?id_utilizador='+req.params.uid, { params: req.query })
-    .then(resposta=> items = resposta.data.sort((a,b) => a.data>b.data))
+    .then(resposta=> items = resposta.data.sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0)))
     .catch(erro => {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
   })
+
+  var itemsT
+  await axios.get('http://localhost:2018/api/items').then(r => itemsT = r.data)
+  .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
+  });
+
+  var evento = itemsT.filter(i => i.tipo.dataInicio).sort((a,b) => (a.data < b.data) ? 1 : ((b.data < a.data) ? -1 : 0));
+  if (evento.length > 0)
+    evento = evento[0]
+  else 
+    evento = undefined
+
+  var users
+  await axios.get('http://localhost:2018/api/utilizadores', { params: req.query })
+    .then(resposta=> users = resposta.data)
+    .catch(erro => {
+      console.log('Erro ao carregar dados da BD.')
+      res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
+  })
+
   axios.get('http://localhost:2018/api/utilizador/' + req.params.uid)
-    .then(resposta=> res.render('utilizador', { user: resposta.data, items: items}))
+    .then(resposta=> res.render('utilizador', { user: resposta.data, items: items, viewer: req.user, evento: evento, users: users}))
     .catch(erro => {
       console.log('Erro ao carregar dados da BD.')
       res.render('error', {error: erro, message: "Erro ao carregar dados da BD."})
