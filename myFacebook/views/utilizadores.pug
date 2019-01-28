@@ -48,7 +48,10 @@ block content
                                     tr 
                                         td(style="vertical-align:middle;width:50%")
                                             div(class="image-txt-container")
-                                                img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                if (u.foto)
+                                                    img.w3-circle(src='/images/'+u.foto style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                else
+                                                    img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
@@ -78,7 +81,10 @@ block content
                                                     -check = true
                                                     td(style="vertical-align:middle;width:50%")
                                                         div(class="image-txt-container")
-                                                            img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                            if (u.foto)
+                                                                img.w3-circle(src='/images/'+u.foto style='height:80px;width:80px;vertical-align:middle' alt='Profile')
+                                                            else
+                                                                img.w3-circle(src='/images/user.png' style='height:80px;width:80px;vertical-align:middle' alt='Profile')
                                                             | &nbsp;
                                                             .w3-container(style="width:605px;vertical-align:top")
                                                                 i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;

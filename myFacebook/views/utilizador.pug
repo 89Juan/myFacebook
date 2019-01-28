@@ -36,7 +36,10 @@ block content
                     .w3-container
                         h4.w3-center=user.nome
                         p.w3-center
-                            img.w3-circle(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:106px;height:106px;")
+                            if (user.foto)
+                                img.w3-circle(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:106px;height:106px;")
+                            else
+                                img.w3-circle(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:106px;height:106px;")
                         hr
                         p
                             i.fa.fa-at.fa-fw.w3-margin-right.w3-text-theme
@@ -114,7 +117,10 @@ block content
                                             // The Grid
                                             .w3-row
                                                 br
-                                                img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                                if (user.foto)
+                                                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                                else
+                                                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                                                 h4=user.nome
                                                 header.w3-container
                                                 h4.w3-center.w3-text-theme Álbum
@@ -169,7 +175,12 @@ block content
                                                 each comentario in item.comentarios
                                                     .hr
                                                     div(class="image-txt-container")
-                                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        each u in users
+                                                            -if(u._id == comentario.id_utilizador)
+                                                                if (u.foto)
+                                                                    img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                                else
+                                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                         | &nbsp;
                                                         .w3-container(style="width:605px;vertical-align:top")
                                                             p 
@@ -184,7 +195,10 @@ block content
                                                 #Demo5
                                                     .hr
                                                     .w3-container
-                                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                        if (viewer.foto)
+                                                            img.w3-circle(src='/images/'+viewer.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        else
+                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                         | &nbsp; &nbsp; &nbsp;
                                                         textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                         button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
@@ -197,7 +211,10 @@ block content
                                             // The Grid
                                             .w3-row
                                                 br
-                                                img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                                if (user.foto)
+                                                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                                else
+                                                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                                                 h4=user.nome
                                                 header.w3-container
                                                 h4.w3-center.w3-text-theme Evento
@@ -264,7 +281,12 @@ block content
                                                 each comentario in item.comentarios
                                                     .hr
                                                     div(class="image-txt-container")
-                                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        each u in users
+                                                            -if(u._id == comentario.id_utilizador)
+                                                                if (u.foto)
+                                                                    img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                                else
+                                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                         | &nbsp;
                                                         .w3-container(style="width:605px;vertical-align:top")
                                                             p 
@@ -279,7 +301,10 @@ block content
                                                 #Demo5
                                                     .hr
                                                     .w3-container
-                                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                        if (viewer.foto)
+                                                            img.w3-circle(src='/images/'+viewer.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        else
+                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                         | &nbsp; &nbsp; &nbsp;
                                                         textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                         button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
@@ -288,7 +313,10 @@ block content
                                                     br
                                 -if(item.tipo == 'Ideia')
                                     br
-                                    img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                    if (user.foto)
+                                        img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                    else
+                                        img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                                     h4=user.nome
                                     br
                                     p=item.descricao
@@ -316,7 +344,12 @@ block content
                                     each comentario in item.comentarios
                                         .hr
                                         div(class="image-txt-container")
-                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                            each u in users
+                                                -if(u._id == comentario.id_utilizador)
+                                                    if (u.foto)
+                                                        img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                    else
+                                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                             | &nbsp;
                                             .w3-container(style="width:605px;vertical-align:top")
                                                 p 
@@ -331,7 +364,10 @@ block content
                                     #Demo5
                                         .hr
                                         .w3-container
-                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                            if (viewer.foto)
+                                                img.w3-circle(src='/images/'+viewer.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                            else
+                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                             | &nbsp; &nbsp; &nbsp;
                                             textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                             button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)

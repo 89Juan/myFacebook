@@ -9,7 +9,8 @@ var UtilizadorSchema = new Schema({
     nome: {type: String, required: true},
     dataNasc: {type: String, required: true},
     morada: {type: String},
-    sexo: {type: String, required: true}
+    sexo: {type: String, required: true},
+    foto: {type: String}
 })
 
 UtilizadorSchema.pre('save', async function (next) {

@@ -380,5 +380,25 @@ router.post('/item/:iid/editarAlbum', verificaAutenticacao, async function(req, 
   })
 });
 
+router.post('/editarFotoPerfil', verificaAutenticacao, function(req, res, next) {
+  var form = new formidable.IncomingForm()
+  form.parse(req, (erro, fields, files) => {
+    var fenviado = files.foto.path
+    var fnovo = './public/images/'+ files.foto.name
+    fs.rename(fenviado, fnovo, erro => {})
+    var foto = files.foto.name
+    var nome = req.user.nome
+    var password = req.user.password
+    var dataNasc = req.user.dataNasc
+    var morada = req.user.morada
+    var sexo = req.user.sexo
+    axios.put('http://localhost:2018/api/utilizador/' + req.user._id, {nome, password, dataNasc, morada, sexo, foto})
+      .then(() => res.redirect('/feed')) 
+      .catch(erro => {
+        console.log('Erro ao inserir dados na BD.')
+        res.render('error', {error: erro, message: erro+"Erro ao carregar dados da BD."})
+      })
+  })
+});
 
 module.exports = router;

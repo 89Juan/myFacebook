@@ -38,20 +38,29 @@ block content
                         // Trigger/Open The Modal
                         .w3-center
                             button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
-                                .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
-                                    .hvrbox-layer_top
-                                        .hvrbox-text.w3-circle
-                                            | Alterar foto de perfil
+                                if (user.foto)
+                                    .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/'+user.foto+');')
+                                        .hvrbox-layer_top
+                                            .hvrbox-text.w3-circle
+                                                | Alterar foto de perfil
+                                else
+                                    .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
+                                        .hvrbox-layer_top
+                                            .hvrbox-text.w3-circle
+                                                | Alterar foto de perfil
                         // The Modal
                         #myModal.modal
                             // Modal content
                             .modal-content
                                 span.close &times;
-                                form.w3-container(action='/' method='POST' enctype='multipart/form-data')
+                                form.w3-container(action='/editarFotoPerfil' method='POST' enctype='multipart/form-data')
                                     b Escolhe a tua nova foto de perfil
                                     br
                                     br
-                                    input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
+                                    input.w3-input.w3-border(type='file' name="foto" id="foto")
+                                    br
+                                    .w3-center
+                                        button.w3-button.w3-theme-d2(id="aderir") Confirmar
                         hr
                         p
                             i.fa.fa-at.fa-fw.w3-margin-right.w3-text-theme
@@ -128,7 +137,10 @@ block content
                                     // The Grid
                                     .w3-row
                                         br
-                                        img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                        if (user.foto)
+                                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                        else
+                                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                                         .w3-dropdown-hover.w3-right.w3-hide-small
                                             button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
                                             // Ao clicar numa notificação ir para a página referente
@@ -190,7 +202,10 @@ block content
                                         each comentario in item.comentarios
                                             .hr
                                             div(class="image-txt-container")
-                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                if (user.foto)
+                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                else
+                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
@@ -205,7 +220,10 @@ block content
                                         #Demo5
                                             .hr
                                             .w3-container
-                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                if (user.foto)
+                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                else
+                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp; &nbsp; &nbsp;
                                                 textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                 button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
@@ -218,7 +236,10 @@ block content
                                     // The Grid
                                     .w3-row
                                         br
-                                        img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                        if (user.foto)
+                                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                                        else
+                                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                                         .w3-dropdown-hover.w3-right.w3-hide-small
                                             button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
                                             // Ao clicar numa notificação ir para a página referente
@@ -289,7 +310,10 @@ block content
                                         each comentario in item.comentarios
                                             .hr
                                             div(class="image-txt-container")
-                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                if (user.foto)
+                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                else
+                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
@@ -304,7 +328,10 @@ block content
                                         #Demo5
                                             .hr
                                             .w3-container
-                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                                if (user.foto)
+                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                else
+                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp; &nbsp; &nbsp;
                                                 textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                                 button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
@@ -313,7 +340,10 @@ block content
                                             br
                         -if(item.tipo == 'Ideia')
                             br
-                            img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                            if (user.foto)
+                                img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/"+user.foto+");background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
+                            else
+                                img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
                             .w3-dropdown-hover.w3-right.w3-hide-small
                                 button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
                                 // Ao clicar numa notificação ir para a página referente
@@ -322,6 +352,7 @@ block content
                                     form(action="/item/"+item._id+"/eliminar" method="POST")
                                         button.w3-bar-item.w3-button(id="eliminar") Eliminar
                             h4=user.nome
+                            
                             br
                             p=item.descricao
                             -if(item.descritores.length > 0)
@@ -348,7 +379,10 @@ block content
                             each comentario in item.comentarios
                                 .hr
                                 div(class="image-txt-container")
-                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    if (user.foto)
+                                        img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    else
+                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                     | &nbsp;
                                     .w3-container(style="width:605px;vertical-align:top")
                                         p 
@@ -363,7 +397,10 @@ block content
                             #Demo5
                                 .hr
                                 .w3-container
-                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                    if (user.foto)
+                                        img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    else
+                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                     | &nbsp; &nbsp; &nbsp;
                                     textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...", id="comentario"+item._id)
                                     button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" class='comentarios '+item._id)
