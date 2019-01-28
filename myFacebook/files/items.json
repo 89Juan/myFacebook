@@ -1,1 +1,195 @@
-[{"_id":{"$oid":"5c4f29657f8ca323951f9d09"},"data":"1548691710006","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":[],"id_utilizador":{"$oid":"5c4f29627f8ca323951f9d08"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f2a304d7d4c2431011210"},"data":"1548691966186","tipo":"Ideia","privacidade":false,"gostos":4,"descritores":[],"id_utilizador":{"$oid":"5c4f2a2e4d7d4c243101120f"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[{"gostos":0,"_id":{"$oid":"5c4f2f5b4d7d4c2431011212"},"descricao":"olá","id_utilizador":{"$oid":"5c4f2a2e4d7d4c243101120f"}},{"gostos":0,"_id":{"$oid":"5c4f30234d7d4c2431011213"},"descricao":"olá","id_utilizador":{"$oid":"5c4f29627f8ca323951f9d08"}},{"gostos":0,"_id":{"$oid":"5c4f31c54d7d4c2431011215"},"descricao":"oi","id_utilizador":{"$oid":"5c4f29627f8ca323951f9d08"}},{"gostos":0,"_id":{"$oid":"5c4f32254d7d4c2431011217"},"descricao":"olá","id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"}}],"__v":0},{"_id":{"$oid":"5c4f2bc04d7d4c2431011211"},"data":"1548691966186","tipo":{"participantes":["5c4f2a2e4d7d4c243101120f"],"dataInicio":"1111-11-11","dataFim":"1111-11-11"},"privacidade":false,"gostos":2,"descritores":[],"id_utilizador":{"$oid":"5c4f2a2e4d7d4c243101120f"},"titulo":"Família","local":"","descricao":"","comentarios":[{"gostos":0,"_id":{"$oid":"5c4f313a4d7d4c2431011214"},"descricao":"olá","id_utilizador":{"$oid":"5c4f29627f8ca323951f9d08"}}],"__v":0},{"_id":{"$oid":"5c4f4ccd748ca9353123675a"},"data":"1548700869248","tipo":"Ideia","privacidade":false,"gostos":0,"descritores":[],"id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f4f81748ca9353123675b"},"data":"1548700869248","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":["#la"],"id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"},"titulo":"Ideia","descricao":"A minha vida... ","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f4f91748ca9353123675c"},"data":"1548700869248","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":["#lala"],"id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f51f0e5633e36bf98dc97"},"data":"1548702144693","tipo":"Ideia","privacidade":false,"gostos":1,"descritores":["#hello"],"id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[{"gostos":0,"_id":{"$oid":"5c4f64bfb0c2e03dd939d79f"},"descricao":"olá","id_utilizador":{"$oid":"5c4f6495b0c2e03dd939d79e"}}],"__v":0},{"_id":{"$oid":"5c4f526de5633e36bf98dc98"},"data":"1548702144693","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":["#la ","#fa"],"id_utilizador":{"$oid":"5c4f32174d7d4c2431011216"},"titulo":"Ideia","descricao":"A minha vida... ","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f67aef6238c400b1a6b10"},"data":"1548707750418","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":[],"id_utilizador":{"$oid":"5c4f6495b0c2e03dd939d79e"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f69730fefcb419223a041"},"data":"1548708195501","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":["#welele"],"id_utilizador":{"$oid":"5c4f6495b0c2e03dd939d79e"},"titulo":"Ideia","descricao":"A minha vida... ","comentarios":[],"__v":0},{"_id":{"$oid":"5c4f6b886d34e543ef97d0dc"},"data":"1548708724143","tipo":"Ideia","privacidade":true,"gostos":0,"descritores":[],"id_utilizador":{"$oid":"5c4f6495b0c2e03dd939d79e"},"titulo":"Ideia","descricao":"A minha vida...","comentarios":[],"__v":0}]
+[{
+	"_id": {
+		"$oid": "5c4f475ffeb0b87f32f96d6c"
+	},
+	"data": "1548699012421",
+	"tipo": "Ideia",
+	"privacidade": false,
+	"gostos": 2,
+	"descritores": [
+		"#ferias"
+	],
+	"id_utilizador": {
+		"$oid": "5c4f46ccfeb0b87f32f96d6b"
+	},
+	"titulo": "Ideia",
+	"descricao": "Estou cansada. Preciso mesmo de marcar umas férias!",
+	"comentarios": [
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f47a5feb0b87f32f96d6d"
+			},
+			"descricao": "A quem o dizes, Mafalda. Também estou a precisar...",
+			"id_utilizador": {
+				"$oid": "5c4f4665feb0b87f32f96d69"
+			}
+		},
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f47e2feb0b87f32f96d6e"
+			},
+			"descricao": "A ver se marcamos alguma coisa as duas, para espairecer.",
+			"id_utilizador": {
+				"$oid": "5c4f4648feb0b87f32f96d68"
+			}
+		},
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f4869feb0b87f32f96d6f"
+			},
+			"descricao": "Vamos passar férias a Londres, ou assim... Que dizes?",
+			"id_utilizador": {
+				"$oid": "5c4f46ccfeb0b87f32f96d6b"
+			}
+		},
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f488ffeb0b87f32f96d70"
+			},
+			"descricao": "Vamos! ",
+			"id_utilizador": {
+				"$oid": "5c4f4648feb0b87f32f96d68"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "5c4f48e0feb0b87f32f96d71"
+	},
+	"data": "1548699012421",
+	"tipo": {
+		"participantes": [
+			"5c4f46ccfeb0b87f32f96d6b",
+			"5c4f4648feb0b87f32f96d68"
+		],
+		"dataInicio": "2019-02-02",
+		"dataFim": "2019-02-05"
+	},
+	"privacidade": false,
+	"gostos": 1,
+	"descritores": [
+		"#viagem",
+		"#amigas"
+	],
+	"id_utilizador": {
+		"$oid": "5c4f46ccfeb0b87f32f96d6b"
+	},
+	"titulo": "Viagem a Londres",
+	"local": "Londres",
+	"descricao": "Passar o fim de semana fora.",
+	"comentarios": [
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f4951feb0b87f32f96d72"
+			},
+			"descricao": "Já confirmei que vou contigo!",
+			"id_utilizador": {
+				"$oid": "5c4f4648feb0b87f32f96d68"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "5c4f4adffeb0b87f32f96d76"
+	},
+	"data": "1548699012421",
+	"tipo": {
+		"participantes": [
+			"5c4f461afeb0b87f32f96d67",
+			"5c4f45b3feb0b87f32f96d66",
+			"5c4f4648feb0b87f32f96d68",
+			"5c4f4665feb0b87f32f96d69"
+		],
+		"dataInicio": "2019-03-05",
+		"dataFim": "2019-03-05"
+	},
+	"privacidade": false,
+	"gostos": 2,
+	"descritores": [
+		"#casamento",
+		"#familia"
+	],
+	"id_utilizador": {
+		"$oid": "5c4f461afeb0b87f32f96d67"
+	},
+	"titulo": "Casamento",
+	"local": "Braga",
+	"descricao": "O meu casamento.",
+	"comentarios": [
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f4bf0feb0b87f32f96d77"
+			},
+			"descricao": "Será o dia mais feliz das nossas vidas!",
+			"id_utilizador": {
+				"$oid": "5c4f45b3feb0b87f32f96d66"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "5c4f4d0dfeb0b87f32f96d79"
+	},
+	"data": "1548699012421",
+	"tipo": {
+		"fotos": [
+			"casamentoo.jpg",
+			"istock_82086545_large.jpg"
+		]
+	},
+	"privacidade": false,
+	"gostos": 4,
+	"descritores": [
+		"#casamento",
+		"#amigos",
+		"#familia"
+	],
+	"id_utilizador": {
+		"$oid": "5c4f461afeb0b87f32f96d67"
+	},
+	"titulo": "Casamento",
+	"descricao": "O início...",
+	"comentarios": [
+		{
+			"gostos": 0,
+			"_id": {
+				"$oid": "5c4f4d47feb0b87f32f96d7a"
+			},
+			"descricao": "Muitas felicidades! ",
+			"id_utilizador": {
+				"$oid": "5c4f4689feb0b87f32f96d6a"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "5c4f543d574eb6135d2c3dcb"
+	},
+	"data": "1548702677200",
+	"tipo": "Ideia",
+	"privacidade": false,
+	"gostos": 0,
+	"descritores": [],
+	"id_utilizador": {
+		"$oid": "5c4f461afeb0b87f32f96d67"
+	},
+	"titulo": "Ideia",
+	"descricao": "Vou mudar de casa...",
+	"comentarios": [],
+	"__v": 0
+}]
+
