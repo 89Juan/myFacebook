@@ -120,6 +120,13 @@ block content
                             .w3-container.w3-padding
                                 h6.w3-opacity Em que estás a pensar?
                                 p.w3-border.w3-padding(contenteditable='true', id='ideia') A minha vida...
+                                //input.w3-input.w3-border(id="descritores" name="descritores" placeholder="#" type="text")
+                                //br
+                                input(id="privado" name="privacidade" type="radio" value="true")
+                                | &nbsp;Privado &nbsp;&nbsp;
+                                input(id="publico" name="privacidade" type="radio" value="false")
+                                | &nbsp;Público &nbsp;&nbsp;
+                                br(style="line-height:30px;")
                                 button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
                                     i.fa.fa-pencil-square-o
                                     |  &nbsp;Publicar
@@ -177,7 +184,7 @@ block content
                                                             u Descritores:
                                                             | &nbsp;
                                                             each descritor in item.descritores
-                                                                span=descritor
+                                                                span.w3-text-theme.w3-border.w3-light-grey=descritor
                                                                 |&nbsp;&nbsp;
                                                     each foto in item.tipo.fotos
                                                         .w3-half
@@ -202,10 +209,12 @@ block content
                                         each comentario in item.comentarios
                                             .hr
                                             div(class="image-txt-container")
-                                                if (user.foto)
-                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                                                else
-                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                each u in users
+                                                    -if(u._id == comentario.id_utilizador)
+                                                        if (u.foto)
+                                                            img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        else
+                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
@@ -288,7 +297,7 @@ block content
                                                             u Descritores:
                                                             | &nbsp;
                                                             each descritor in item.descritores
-                                                                span=descritor
+                                                                span.w3-text-theme.w3-border.w3-light-grey=descritor
                                                                 |&nbsp;&nbsp;
                                                     -i++
                                         br
@@ -310,10 +319,12 @@ block content
                                         each comentario in item.comentarios
                                             .hr
                                             div(class="image-txt-container")
-                                                if (user.foto)
-                                                    img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                                                else
-                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                each u in users
+                                                    -if(u._id == comentario.id_utilizador)
+                                                        if (u.foto)
+                                                            img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                                        else
+                                                            img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                                 | &nbsp;
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     p 
@@ -358,7 +369,7 @@ block content
                             -if(item.descritores.length > 0)
                                 p
                                     each descritor in item.descritores
-                                        span=descritor
+                                        span.w3-text-theme.w3-border.w3-light-grey=descritor
                                         |&nbsp;&nbsp;
                             br
                             .hr.w3-clear
@@ -379,10 +390,12 @@ block content
                             each comentario in item.comentarios
                                 .hr
                                 div(class="image-txt-container")
-                                    if (user.foto)
-                                        img.w3-circle(src='/images/'+user.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                                    else
-                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    each u in users
+                                        -if(u._id == comentario.id_utilizador)
+                                            if (u.foto)
+                                                img.w3-circle(src='/images/'+u.foto style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                            else
+                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
                                     | &nbsp;
                                     .w3-container(style="width:605px;vertical-align:top")
                                         p 
@@ -479,6 +492,17 @@ block content
 
       document.getElementById('publicar').onclick = () => {
           var desc = document.getElementById('ideia').textContent;
+          var split = desc.split("#")
+          desc = split[0]
+          var descritores = []
+          for(i=1; i<split.length; i++)
+            descritores.push("#"+split[i])
+          var privacidade
+          if (document.getElementById('publico').checked) {
+            privacidade = false
+          }
+          else
+            privacidade = true
           var user_id = "#{user._id}";
           fetch("http://localhost:2018/api/item", {
               method: 'POST',
@@ -491,6 +515,8 @@ block content
                   id_utilizador: user_id,
                   titulo: 'Ideia',
                   tipo: 'Ideia',
+                  privacidade: privacidade,
+                  descritores: descritores,
                   descricao: desc})
           }).then(r => window.location.assign("http://localhost:2018/feed"))
       }

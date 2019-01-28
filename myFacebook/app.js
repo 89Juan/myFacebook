@@ -19,9 +19,10 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
 var axios = require('axios')
 var UserModel = require('./models/utilizador')
-
+var mongoexport = require('mongoexport-wrapper');
 
 var app = express();
+
 
 // Registo de um utilizador
 passport.use('registar', new LocalStrategy({
@@ -93,6 +94,21 @@ app.use(passport.session())
 mongoose.connect('mongodb://127.0.0.1:27017/myFacebook', {useNewUrlParser: true})
   .then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
   .catch(()=> console.log('Mongo: erro na conexão.'))
+
+
+/*var opt = {
+  host : '127.0.0.1:27017',
+  db : 'myFacebook',
+  collection :'utilizadores',
+  out : 'utilizadores.json',
+}
+//mongoexport command should be in path variable
+//all options for mongoexport command can be used
+ 
+mongoexport(opt,(err,result)=>{
+    if(err) console.log(err);
+    else console.log(result);
+});*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

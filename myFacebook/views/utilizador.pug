@@ -150,7 +150,7 @@ block content
                                                                     u Descritores:
                                                                     | &nbsp;
                                                                     each descritor in item.descritores
-                                                                        span=descritor
+                                                                        span.w3-text-theme.w3-border.w3-light-grey=descritor
                                                                         |&nbsp;&nbsp;
                                                             each foto in item.tipo.fotos
                                                                 .w3-half
@@ -256,7 +256,7 @@ block content
                                                                     u Descritores:
                                                                     | &nbsp;
                                                                     each descritor in item.descritores
-                                                                        span=descritor
+                                                                        span.w3-text-theme.w3-border.w3-light-grey=descritor
                                                                         |&nbsp;&nbsp;
                                                             .w3-center
                                                                 button.w3-button.w3-theme-d2(id="aderir") 
@@ -323,7 +323,7 @@ block content
                                     -if(item.descritores.length > 0)
                                         p
                                             each descritor in item.descritores
-                                                span=descritor
+                                                span.w3-text-theme.w3-border.w3-light-grey=descritor
                                                 |&nbsp;&nbsp;
                                     br
                                     .hr.w3-clear
