@@ -152,7 +152,7 @@ router.get('/editarPerfil', verificaAutenticacao, function(req, res, next) {
   res.render('editarPerfil', {user: req.user})
 });
 
-router.post('/utilizador/:uid', async function(req, res) {
+router.post('/utilizador/:uid', verificaAutenticacao, async function(req, res) {
   var nome = req.body.nome
   if (nome == '')
     nome = req.user.nome
