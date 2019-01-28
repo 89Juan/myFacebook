@@ -45,7 +45,12 @@ block content
             header.w3-container
                 h2.w3-center(style="color:#006683") Utilizadores
             -var i = 0
+            -var yes = false
+            -if(utilizadores.length==1 && utilizadores[0].email != user.email)
+                -yes=true
             -if(utilizadores.length > 1)
+                -yes=true
+            -if(yes)
                 table.w3-table-all
                     - while(i < utilizadores.length)
                         -var check = false
@@ -61,7 +66,7 @@ block content
                                                 .w3-container(style="width:605px;vertical-align:top")
                                                     i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
                                                     span
-                                                        a(href="/utilizador/"+u.email)=u.nome
+                                                        a(href="/utilizador/"+u._id)=u.nome
                                                     br
                                                     i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
                                                     span=u.email
@@ -90,7 +95,7 @@ block content
                                                             .w3-container(style="width:605px;vertical-align:top")
                                                                 i.fa.fa-user(style="color:#006683") &nbsp;&nbsp;&nbsp;
                                                                 span
-                                                                    a(href="/utilizador/"+u.email)=u.nome
+                                                                    a(href="/utilizador/"+u._id)=u.nome
                                                                 br
                                                                 i.fa.fa-at(style="color:#006683") &nbsp;&nbsp;
                                                                 span=u.email

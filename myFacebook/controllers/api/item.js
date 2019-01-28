@@ -71,7 +71,7 @@ module.exports.inserir = item => {
 module.exports.atualizaItem = (iid, item) => {
     return Item
         .update({_id: iid},
-                {item})
+                {$set:item})
         .exec()
 }
 

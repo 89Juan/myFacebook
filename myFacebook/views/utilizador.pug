@@ -36,6 +36,8 @@ block content
                 // Ao clicar numa notificação ir para a página referente
                 .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:300px;right:0')
                     a.w3-bar-item.w3-button(href='#') One new friend request
+                    a.w3-bar-item.w3-button(href='#') John Doe posted on your wall
+                    a.w3-bar-item.w3-button(href='#') Jane likes your post
     // Page Container
     .w3-container.w3-content(style='max-width:1400px;margin-top:80px')
         // The Grid
@@ -46,23 +48,8 @@ block content
                 .w3-card.w3-round.w3-white
                     .w3-container
                         h4.w3-center=user.nome
-                        // Trigger/Open The Modal
-                        .w3-center
-                            button#myBtn(style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;")
-                                .hvrbox.hvrbox_background.w3-circle(style='background-image: url(/images/user.png);')
-                                    .hvrbox-layer_top
-                                        .hvrbox-text.w3-circle
-                                            | Alterar foto de perfil
-                        // The Modal
-                        #myModal.modal
-                            // Modal content
-                            .modal-content
-                                span.close &times;
-                                form.w3-container(action='/' method='POST' enctype='multipart/form-data')
-                                    b Escolhe a tua nova foto de perfil
-                                    br
-                                    br
-                                    input.w3-input.w3-border(type='file' name="profile_pic" id="profile_pic")
+                        p.w3-center
+                            img.w3-circle(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:106px;height:106px;")
                         hr
                         p
                             i.fa.fa-at.fa-fw.w3-margin-right.w3-text-theme
@@ -82,9 +69,6 @@ block content
                             -else
                                 i.fa.fa-genderless.fa-fw.w3-margin-right.w3-text-theme
                             span=user.sexo
-                        .w3-center
-                            p.w3-button.w3-theme-d2(id="editarPerfil") 
-                                a(style="text-decoration: none" href="/editarPerfil") Editar Perfil
                         br
                 br
                 // Accordion
@@ -132,24 +116,12 @@ block content
                 br
             // End Left Column
             // Middle Column
-            .w3-col.m7
-                .w3-row-padding
-                    .w3-col.m12
-                        .w3-card.w3-round.w3-white
-                            .w3-container.w3-padding
-                                h6.w3-opacity Em que estás a pensar?
-                                p.w3-border.w3-padding(contenteditable='true', id='ideia') A minha vida...
-                                button.w3-button.w3-right.w3-theme.w3-round(type='button', id='publicar')
-                                    i.fa.fa-pencil-square-o
-                                    |  &nbsp;Publicar
-                                button.w3-button.w3-hover-white(type='button')
-                                    a(style="text-decoration: none" href="/album")
-                                        i.fa.fa-camera
-                                button.w3-button.w3-hover-white(type='button')
-                                    a(style="text-decoration: none" href="/evento")
-                                        i.fa.fa-calendar
+            .w3-col.m9
+                -if (items.length == 0)
+                    .w3-container.w3-card.w3-white.w3-round.w3-margin-left.w3-margin-bottom(style="min-height: 550px;vertical-align:middle")
+                        p.w3-xlarge.w3-center(style="margin-top:245px") Ainda sem publicações...
                 each item in items
-                    .w3-container.w3-card.w3-white.w3-round.w3-margin
+                    .w3-container.w3-card.w3-white.w3-round.w3-margin-left.w3-margin-bottom
                         -if(item.tipo.fotos)
                             a(name=item._id)
                             .w3-content(style='max-width:1400px;margin-top:1px')
@@ -157,13 +129,6 @@ block content
                                     .w3-row
                                         br
                                         img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
-                                        .w3-dropdown-hover.w3-right.w3-hide-small
-                                            button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
-                                            // Ao clicar numa notificação ir para a página referente
-                                            .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:60px;right:0')
-                                                a.w3-bar-item.w3-button(href='/item/'+item._id+'/editar') Editar
-                                                form(action="/item/"+item._id+"/eliminar" method="POST")
-                                                    button.w3-bar-item.w3-button(id="eliminar") Eliminar
                                         h4=user.nome
                                         header.w3-container
                                         h4.w3-center.w3-text-theme Álbum
@@ -201,39 +166,39 @@ block content
                                                     -i++
                                         br
                                         .hr.w3-clear
-                                        // Ao clicar mudar o botão para fa.fa.thumbs-up azul
-                                        form(method='POST' action='/gostar/')
-                                            button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
-                                                i.fa.fa-thumbs-o-up
-                                                = 'Gostos (' +  item.gostos +')'
-                                            button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('#{item._id}')")
-                                                i.fa.fa-comment-o
-                                                = 'Comentarios (' +  item.comentarios.length +')'
-                                        each comentario in item.comentarios
-                                            .hr
-                                            div(class="image-txt-container")
-                                                img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
-                                                | &nbsp;
-                                                .w3-container(style="width:605px;vertical-align:top")
-                                                    p 
-                                                        b(style="color:#006683")=comentario.id_utilizador
+                            // Ao clicar mudar o botão para fa.fa.thumbs-up azul
+                            form(method='POST' action='/gostar/')
+                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='submit')
+                                    i.fa.fa-thumbs-o-up
+                                    = 'Gostos (' +  item.gostos +')'
+                                button.w3-button.w3-margin-bottom(class="w3-hover-white" type='button' onclick="myFunction('#{item._id}')")
+                                    i.fa.fa-comment-o
+                                    = 'Comentarios (' +  item.comentarios.length +')'
+                            each comentario in item.comentarios
+                                .hr
+                                div(class="image-txt-container")
+                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px; margin-top:10px; vertical-align:top' alt='Profile')
+                                    | &nbsp;
+                                    .w3-container(style="width:605px;vertical-align:top")
+                                        p 
+                                            b(style="color:#006683")=comentario.id_utilizador
 
-                                                    .w3-border.w3-round.w3-light-grey
-                                                        div(style="margin-left:10px")
-                                                            p=comentario.descricao
-                                            br
-                                        .w3-hide(class="#"+item_id)
-                                            -if(item.comentarios.length == 0)
-                                            .hr
-                                            .w3-container
-                                                form(action='/' method='POST' enctype='multipart/form-data')
-                                                    img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
-                                                    | &nbsp; &nbsp; &nbsp;
-                                                    textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
-                                                    button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
-                                                        i.fa.fa-comment-o
-                                                        |  &nbsp;Comentar
-                                            br
+                                        .w3-border.w3-round.w3-light-grey
+                                            div(style="margin-left:10px")
+                                                p=comentario.descricao
+                                br
+                            .w3-hide(class="#"+item_id)
+                                -if(item.comentarios.length == 0)
+                                .hr
+                                .w3-container
+                                    form(action='/' method='POST' enctype='multipart/form-data')
+                                        img.w3-circle(src='/images/user.png' style='height:35px;width:35px;vertical-align:top' alt='Profile')
+                                        | &nbsp; &nbsp; &nbsp;
+                                        textarea.w3-round.w3-light-grey(placeholder="Escreva um comentário...")
+                                        button.w3-button.w3-right.w3-theme.w3-round(style="margin-right:5px" type='submit')
+                                            i.fa.fa-comment-o
+                                            |  &nbsp;Comentar
+                                br
                         -if(item.tipo.dataInicio)
                             a(name=item._id)
                             .w3-content(style='max-width:1400px;margin-top:1px')
@@ -241,13 +206,6 @@ block content
                                     .w3-row
                                         br
                                         img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
-                                        .w3-dropdown-hover.w3-right.w3-hide-small
-                                            button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
-                                            // Ao clicar numa notificação ir para a página referente
-                                            .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:60px;right:0')
-                                                a.w3-bar-item.w3-button(href='/item/'+item._id+'/editar') Editar
-                                                form(action="/item/"+item._id+"/eliminar" method="POST")
-                                                    button.w3-bar-item.w3-button(id="eliminar") Eliminar
                                         h4=user.nome
                                         header.w3-container
                                         h4.w3-center.w3-text-theme Evento
@@ -282,6 +240,9 @@ block content
                                                             u Descrição:
                                                             | &nbsp;
                                                             span=item.descricao
+                                                    .w3-center
+                                                        button.w3-button.w3-theme-d2(id="aderir") 
+                                                            a(style="text-decoration: none" href="/items/#"+item._id) Detalhes
                                                     -i++
                                         br
                                         .hr.w3-clear
@@ -321,13 +282,6 @@ block content
                         -if(item.tipo == 'Ideia')
                             br
                             img.w3-left.w3-circle.w3-margin-right(style="background:url(/images/user.png);background-size: cover;border-radius:50% 50% 50% 50%;width:60px;height:60px;")
-                            .w3-dropdown-hover.w3-right.w3-hide-small
-                                button.w3-button.w3-padding-large.w3-hover-white(title='Opções') ...
-                                // Ao clicar numa notificação ir para a página referente
-                                .w3-dropdown-content.w3-card-4.w3-bar-block(style='width:60px;right:0')
-                                    a.w3-bar-item.w3-button(href='/item/'+item._id+'/editar') Editar
-                                    form(action="/item/"+item._id+"/eliminar" method="POST")
-                                        button.w3-bar-item.w3-button(id="eliminar") Eliminar
                             h4=user.nome
                             br
                             p=item.descricao
@@ -366,19 +320,6 @@ block content
                                 br
 
             // End Middle Column
-            // Right Column
-            .w3-col.m2
-                .w3-card.w3-round.w3-white.w3-center
-                    .w3-container
-                        p Eventos em breve:
-                        img(src='/images/user.png' alt='Forest' style='width:100%;')
-                        p
-                            strong Holiday
-                        p Friday 15:00
-                        p
-                            button.w3-button.w3-block.w3-theme-l4 Info
-                br
-            // End Right Column
         // End Grid
     // End Page Container
     br
@@ -411,55 +352,3 @@ block content
           modal.style.display = "none";
         }
       }
-
-      document.getElementById('publicar').onclick = () => {
-          var desc = document.getElementById('ideia').textContent;
-          var user_id = "#{user._id}";
-          fetch("http://localhost:2018/api/item", {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-              body: JSON.stringify({
-                  id_utilizador: user_id,
-                  titulo: 'Ideia',
-                  tipo: 'Ideia',
-                  descricao: desc})
-          }).then(r => window.location.assign("http://localhost:2018/feed"))
-      }
-
-      Array.from(document.getElementsByClassName('gosto')).map(el => {
-          el.onclick = () => {
-            var item_id = el.classList[el.classList.length-1]
-            fetch("http://localhost:2018/api/item/"+item_id+"/like", {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-            }
-            ).then(r => window.location.assign("http://localhost:2018/feed"))
-          }
-      })
-
-      Array.from(document.getElementsByClassName('comentarios')).map(el => {
-          el.onclick = () => {
-            var item_id = el.classList[el.classList.length-1];
-            var comment = document.getElementById("comentario").value
-            fetch("http://localhost:2018/api/item/"+item_id+"/comentario", {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              redirect: 'follow',
-              body: JSON.stringify({
-                  descricao: comment
-              })
-            }
-            ).then(r => window.location.assign("http://localhost:2018/feed"))
-          }
-      })

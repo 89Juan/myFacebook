@@ -17,7 +17,7 @@ router.get('/utilizadores', (req,res) => {
 })
 
 router.get('/utilizador/:uid', (req,res) => {
-    Utilizador.consultar(req.params.uid)
+    Utilizador.consultarId(req.params.uid)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na consulta de um utlizador.'))
 })

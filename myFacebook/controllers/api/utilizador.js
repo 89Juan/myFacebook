@@ -15,6 +15,13 @@ module.exports.consultar = email => {
         .exec()
 }
 
+// Devolve informação de um utilizador por id
+module.exports.consultarId = uid => {
+  return Utilizador
+      .findOne({_id: uid})
+      .exec()
+}
+
 // Listar publicações de um utilizador
 module.exports.listarItems = (uid) => {
     return Item

@@ -55,6 +55,7 @@ router.put('/item/:iid/participantes', (req, res)=>{
 })
 
 router.post('/item', (req, res)=>{
+    console.log(req.body)
     Item.inserir(req.body)
         .then(dados => res.jsonp(dados))
         .catch(erro => res.status(500).send(erro+'Erro na atualização de um item.'))
