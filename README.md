@@ -1,4 +1,4 @@
-# MYFACEBOOK INFO
+# myFacebook
 
 Web application for publication of content (photos, events,...) developed in the course of Web Applications Development.
 
@@ -18,11 +18,11 @@ Structured in 5 main folders:
 
 ## Backend
 
-The server is fetching data from MongoDB (listening on port 27017 in localhost).
+The server is fetching data from MongoDB (listening on port `27017` in `localhost`).
 
 ## Frontend
 
-Is fetching data from port 2018 in localhost.
+Is fetching data from port `2018` in `localhost`.
 
 ## Start Guide
 
@@ -30,7 +30,7 @@ Is fetching data from port 2018 in localhost.
 Install [MongoDB](https://docs.mongodb.com/manual/installation/) on your machine and make sure it's running correctly.
 
 #### 2. Create the DB
-In the mongo shell, create the database `myFacebook`:
+On the mongo shell, create the database `myFacebook`:
   ```
   >use myFacebook
   switched to db myFacebook
@@ -45,7 +45,7 @@ Then, create the collections `utilizadores` and `items`:
   ```
 
 #### 3. Run the APP
-Inside the folder `myFacebook`, on your command line make:
+On your command line, inside the folder `myFacebook`, make:
   ```
   npm install
   ```
