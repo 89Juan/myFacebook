@@ -27,7 +27,7 @@ Is fetching data from port 2018 in localhost.
 ## Start Guide
 
 #### 1. Install MongoDB
-Install [MongoDB](#https://docs.mongodb.com/manual/installation/) on your machine and make sure it's running correctly.
+Install [MongoDB](https://docs.mongodb.com/manual/installation/) on your machine and make sure it's running correctly.
 
 #### 2. Create the DB
 In the mongo shell, create the database `myFacebook`:
@@ -49,6 +49,8 @@ Inside the folder `myFacebook`, on your command line make:
   ```
   npm install
   ```
+
+Followed by:
   ```
   npm start
   ```
